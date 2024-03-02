@@ -12,19 +12,46 @@ Write last
 
 ------------------------------------------------------------------------
 
-What we want to know and let people investigate
+Singaporean customer preferences when shopping for daily necessities is continuously changing. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates.
+
+However, such trends are largely anecdotal, with even less known about how the prevalence of different supermarket chains, convenience stores, or other places of interest change in different neighbourhoods.
+
+We would like create geospatial analytics application to allow users to address their various curiosities around this subject by visualising differences and patterns across Singapore.
 
 ## Objectives
 
 ------------------------------------------------------------------------
 
-What people should be able to do and why
+We would like to build an interactive tool to allow users to
+
+-   Compare the prevalence of different sources of necessities in different neighbourhoods
+
+-   Visualise the coverage and convenience of different sources of necessities with a neighbourhood
 
 ## Main Features
 
 ------------------------------------------------------------------------
 
-More technical explanation to meet objectives
+To meet the aforementioned objectives, we proposed 3 features of our applications.
+
+1.  Exploratory Data Analysis
+    -   Filter points by type (e.g. supermarket, wet markets, etc.) and region
+
+    -   Plot these points on a map
+
+    -   Plot histograms of the number of points of interest
+2.  Kernel Density Estimation
+    -   Generate KDE maps for certain facilities
+
+    -   Overlay demographic information specific to each neighbourhood on a map
+
+    -   Allow interactive zooming in and out for users to get a closer look
+3.  Spatial Clustering
+    -   Select variables for clustering, normalised by the neighbourhood's population
+
+    -   Allow for clustering based on the prevalence of various facility types
+
+    -   Select the number of clusters and clustering algorithms
 
 ## Datasets
 
@@ -32,7 +59,27 @@ More technical explanation to meet objectives
 
 #### Spatial
 
+-   [Supermarkets (2019)](https://beta.data.gov.sg/datasets/d_8a77ee0446716b2ce475a587004afc73/view)
+
+    -   Government Data on Supermarkets
+
+-   [Markets & Food Centres (2023)](https://beta.data.gov.sg/collections/1389/datasets/d_b5f8a5a4584b6e537c0ab81a48ca3497/view)
+
+    -   Government Data on Wet Markets and Food Centres, including Hawker Centres
+
+-   [Master Plan 2019 Subzones (2019)](https://beta.data.gov.sg/datasets/d_0900fdcfdb4666fe2a630f37a532fc06/view)
+
+    -   Geospatial data consisting of Singapore's planning areas, subzones, and boundaries
+
+-   [Land & Transport Singapore (LTSG) dataset (2022)](https://github.com/BlueSkyLT/siteselect_sg/tree/main)
+
+    -   An extensive dataset containing the locations of various points of interest around Singapore
+
 #### Aspatial
+
+-   [Singapore Census of Population (2020)](https://www.singstat.gov.sg/-/media/files/publications/cop2020/sr2/excel/t88-91.ashx)
+
+    -   Includes data such as the population of various neighbourhoods and the distribution of age groups within
 
 ## Literature Reviews
 

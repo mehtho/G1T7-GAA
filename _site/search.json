@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "G1T7-GAA",
+    "title": "Project Proposal",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Write last"
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,61 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Project Proposal",
+    "section": "",
+    "text": "Write last"
+  },
+  {
+    "objectID": "index.html#problem-motivation",
+    "href": "index.html#problem-motivation",
+    "title": "Project Proposal",
+    "section": "Problem & Motivation",
+    "text": "Problem & Motivation\n\nSingaporean customer preferences when shopping for daily necessities is continuously changing. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates.\nHowever, such trends are largely anecdotal, with even less known about how the prevalence of different supermarket chains, convenience stores, or other places of interest change in different neighbourhoods.\nWe would like create geospatial analytics application to allow users to address their various curiosities around this subject by visualising differences and patterns across Singapore."
+  },
+  {
+    "objectID": "index.html#objectives",
+    "href": "index.html#objectives",
+    "title": "Project Proposal",
+    "section": "Objectives",
+    "text": "Objectives\n\nWe would like to build an interactive tool to allow users to\n\nCompare the prevalence of different sources of necessities in different neighbourhoods\nVisualise the coverage and convenience of different sources of necessities with a neighbourhood"
+  },
+  {
+    "objectID": "index.html#main-features",
+    "href": "index.html#main-features",
+    "title": "Project Proposal",
+    "section": "Main Features",
+    "text": "Main Features\n\nMore technical explanation to meet objectives"
+  },
+  {
+    "objectID": "index.html#datasets",
+    "href": "index.html#datasets",
+    "title": "Project Proposal",
+    "section": "Datasets",
+    "text": "Datasets\n\n\nSpatial\n\n\nAspatial"
+  },
+  {
+    "objectID": "index.html#literature-reviews",
+    "href": "index.html#literature-reviews",
+    "title": "Project Proposal",
+    "section": "Literature Reviews",
+    "text": "Literature Reviews"
+  },
+  {
+    "objectID": "index.html#system-architecture",
+    "href": "index.html#system-architecture",
+    "title": "Project Proposal",
+    "section": "System Architecture",
+    "text": "System Architecture"
+  },
+  {
+    "objectID": "index.html#ui-wireframes",
+    "href": "index.html#ui-wireframes",
+    "title": "Project Proposal",
+    "section": "UI Wireframes",
+    "text": "UI Wireframes"
   }
 ]
