@@ -1,11 +1,47 @@
 ---
-title: "G1T7-GAA"
+title: "Project Proposal"
 ---
 
-This is a Quarto website.
+## Abstract
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+------------------------------------------------------------------------
 
-```{r}
-1 + 1
-```
+Write last
+
+## Problem & Motivation
+
+------------------------------------------------------------------------
+
+What we want to know and let people investigate
+
+## Objectives
+
+------------------------------------------------------------------------
+
+What people should be able to do and why
+
+## Main Features
+
+------------------------------------------------------------------------
+
+More technical explanation to meet objectives
+
+## Datasets
+
+------------------------------------------------------------------------
+
+#### Spatial
+
+#### Aspatial
+
+## Literature Reviews
+
+------------------------------------------------------------------------
+
+## System Architecture
+
+------------------------------------------------------------------------
+
+## UI Wireframes
+
+------------------------------------------------------------------------
