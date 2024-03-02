@@ -109,6 +109,22 @@ Inspired by this article, we would like to pay more attention to the theoretical
 
 ------------------------------------------------------------------------
 
+## ![](images/clipboard-1689539549.png)
+
 ## UI Wireframes
 
 ------------------------------------------------------------------------
+
+::: panel-tabset
+## EDA
+
+![](images/clipboard-2628712309.png)
+
+## KDE
+
+![](images/clipboard-631132815.png)
+
+## Spatial Clustering
+
+![](images/clipboard-3267201596.png)
+:::
