@@ -85,6 +85,26 @@ To meet the aforementioned objectives, we proposed 3 features of our application
 
 ------------------------------------------------------------------------
 
+[No Longer “Dirty, Unhygienic, Crowded and Messy”: The Story of Singapore’s Changing Wet Markets](https://biblioasia.nlb.gov.sg/vol-18/issue-1/apr-to-jun-2022/singapore-changing-wet-markets/)
+
+In 1981, it was decided that no more new wet markets would be built, and the last 2 traditional wet markets in Jurong were built in 1984. Some reasons highlighted were labour and time efficiency. Time efficiency is particularly interesting, as they mentioned that due to the new trend of dual-income families, marketing had to become a faster and more efficient activity, replacing the notion of a wife spending the day at the market.
+
+The article also mentioned the issue of succession despite a sentimental attachment to wet markets.
+
+[IN FOCUS: Is there a future for Singapore’s wet markets?](https://www.channelnewsasia.com/singapore/wet-markets-singapore-future-focus-footfall-interest-die-out-3689661)
+
+In 2011, the government announced that it would continue building wet markets but focus more on the food-centre aspect, providing affordable food options in areas lacking them.
+
+From the above articles, we can see that certain estates developed between 1984 and 2011 may lack food centres and wet markets. We can also expect some food centres in newer estates. This motivates the use of spatial clustering to observe these patterns and confirm or disprove our intuition.
+
+This article also motivates the inclusion of supermarkets, wet markets, and food centres in our clustering criteria
+
+[Barriers to the advancement of modern food retail formats:Theory and measurement](https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=3389&context=lkcsb_research)
+
+In this study, it was noted that supermarkets have been adopted across all age groups but not far into the perishable products category. However, this study was not done using data from Singapore, which may yield different results. While this study used a different method from kernel density estimation to estimate the coverage of supermarkets, we believe it is a simple method to approximate the demand for wet markets. This is because if a wet market did not have enough demand and customer footfall to sustain itself, it would close down or be replaced, perhaps by a food centre.
+
+Inspired by this article, we would like to pay more attention to the theoretical coverage provided by wet markets and supermarkets.
+
 ## System Architecture
 
 ------------------------------------------------------------------------

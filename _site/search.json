@@ -39,21 +39,21 @@
     "href": "index.html#main-features",
     "title": "Project Proposal",
     "section": "Main Features",
-    "text": "Main Features\n\nMore technical explanation to meet objectives"
+    "text": "Main Features\n\nTo meet the aforementioned objectives, we proposed 3 features of our applications.\n\nExploratory Data Analysis\n\nFilter points by type (e.g. supermarket, wet markets, etc.) and region\nPlot these points on a map\nPlot histograms of the number of points of interest\n\nKernel Density Estimation\n\nGenerate KDE maps for certain facilities\nOverlay demographic information specific to each neighbourhood on a map\nAllow interactive zooming in and out for users to get a closer look\n\nSpatial Clustering\n\nSelect variables for clustering, normalised by the neighbourhood’s population\nAllow for clustering based on the prevalence of various facility types\nSelect the number of clusters and clustering algorithms"
   },
   {
     "objectID": "index.html#datasets",
     "href": "index.html#datasets",
     "title": "Project Proposal",
     "section": "Datasets",
-    "text": "Datasets\n\n\nSpatial\n\n\nAspatial"
+    "text": "Datasets\n\n\nSpatial\n\nSupermarkets (2019)\n\nGovernment Data on Supermarkets\n\nMarkets & Food Centres (2023)\n\nGovernment Data on Wet Markets and Food Centres, including Hawker Centres\n\nMaster Plan 2019 Subzones (2019)\n\nGeospatial data consisting of Singapore’s planning areas, subzones, and boundaries\n\nLand & Transport Singapore (LTSG) dataset (2022)\n\nAn extensive dataset containing the locations of various points of interest around Singapore\n\n\n\n\nAspatial\n\nSingapore Census of Population (2020)\n\nIncludes data such as the population of various neighbourhoods and the distribution of age groups within"
   },
   {
     "objectID": "index.html#literature-reviews",
     "href": "index.html#literature-reviews",
     "title": "Project Proposal",
     "section": "Literature Reviews",
-    "text": "Literature Reviews"
+    "text": "Literature Reviews\n\nNo Longer “Dirty, Unhygienic, Crowded and Messy”: The Story of Singapore’s Changing Wet Markets\nIn 1981, it was decided that no more new wet markets would be built, and the last 2 traditional wet markets in Jurong were built in 1984. Some reasons highlighted were labour and time efficiency. Time efficiency is particularly interesting, as they mentioned that due to the new trend of dual-income families, marketing had to become a faster and more efficient activity, replacing the notion of a wife spending the day at the market.\nThe article also mentioned the issue of succession despite a sentimental attachment to wet markets.\nIN FOCUS: Is there a future for Singapore’s wet markets?\nIn 2011, the government announced that it would continue building wet markets but focus more on the food-centre aspect, providing affordable food options in areas lacking them.\nFrom the above articles, we can see that certain estates developed between 1984 and 2011 may lack food centres and wet markets. We can also expect some food centres in newer estates. This motivates the use of spatial clustering to observe these patterns and confirm or disprove our intuition.\nThis article also motivates the inclusion of supermarkets, wet markets, and food centres in our clustering criteria\nBarriers to the advancement of modern food retail formats:Theory and measurement\nIn this study, it was noted that supermarkets have been adopted across all age groups but not far into the perishable products category. However, this study was not done using data from Singapore, which may yield different results. While this study used a different method from kernel density estimation to estimate the coverage of supermarkets, we believe it is a simple method to approximate the demand for wet markets. This is because if a wet market did not have enough demand and customer footfall to sustain itself, it would close down or be replaced, perhaps by a food centre.\nInspired by this article, we would like to pay more attention to the theoretical coverage provided by wet markets and supermarkets."
   },
   {
     "objectID": "index.html#system-architecture",

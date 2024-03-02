@@ -169,21 +169,75 @@ ul.task-list li input[type="checkbox"] {
 <section id="main-features" class="level2">
 <h2 class="anchored" data-anchor-id="main-features">Main Features</h2>
 <hr>
-<p>More technical explanation to meet objectives</p>
+<p>To meet the aforementioned objectives, we proposed 3 features of our applications.</p>
+<ol type="1">
+<li>Exploratory Data Analysis
+<ul>
+<li><p>Filter points by type (e.g.&nbsp;supermarket, wet markets, etc.) and region</p></li>
+<li><p>Plot these points on a map</p></li>
+<li><p>Plot histograms of the number of points of interest</p></li>
+</ul></li>
+<li>Kernel Density Estimation
+<ul>
+<li><p>Generate KDE maps for certain facilities</p></li>
+<li><p>Overlay demographic information specific to each neighbourhood on a map</p></li>
+<li><p>Allow interactive zooming in and out for users to get a closer look</p></li>
+</ul></li>
+<li>Spatial Clustering
+<ul>
+<li><p>Select variables for clustering, normalised by the neighbourhood’s population</p></li>
+<li><p>Allow for clustering based on the prevalence of various facility types</p></li>
+<li><p>Select the number of clusters and clustering algorithms</p></li>
+</ul></li>
+</ol>
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
 <hr>
 <section id="spatial" class="level4">
 <h4 class="anchored" data-anchor-id="spatial">Spatial</h4>
+<ul>
+<li><p><a href="https://beta.data.gov.sg/datasets/d_8a77ee0446716b2ce475a587004afc73/view">Supermarkets (2019)</a></p>
+<ul>
+<li>Government Data on Supermarkets</li>
+</ul></li>
+<li><p><a href="https://beta.data.gov.sg/collections/1389/datasets/d_b5f8a5a4584b6e537c0ab81a48ca3497/view">Markets &amp; Food Centres (2023)</a></p>
+<ul>
+<li>Government Data on Wet Markets and Food Centres, including Hawker Centres</li>
+</ul></li>
+<li><p><a href="https://beta.data.gov.sg/datasets/d_0900fdcfdb4666fe2a630f37a532fc06/view">Master Plan 2019 Subzones (2019)</a></p>
+<ul>
+<li>Geospatial data consisting of Singapore’s planning areas, subzones, and boundaries</li>
+</ul></li>
+<li><p><a href="https://github.com/BlueSkyLT/siteselect_sg/tree/main">Land &amp; Transport Singapore (LTSG) dataset (2022)</a></p>
+<ul>
+<li>An extensive dataset containing the locations of various points of interest around Singapore</li>
+</ul></li>
+</ul>
 </section>
 <section id="aspatial" class="level4">
 <h4 class="anchored" data-anchor-id="aspatial">Aspatial</h4>
+<ul>
+<li><p><a href="https://www.singstat.gov.sg/-/media/files/publications/cop2020/sr2/excel/t88-91.ashx">Singapore Census of Population (2020)</a></p>
+<ul>
+<li>Includes data such as the population of various neighbourhoods and the distribution of age groups within</li>
+</ul></li>
+</ul>
 </section>
 </section>
 <section id="literature-reviews" class="level2">
 <h2 class="anchored" data-anchor-id="literature-reviews">Literature Reviews</h2>
 <hr>
+<p><a href="https://biblioasia.nlb.gov.sg/vol-18/issue-1/apr-to-jun-2022/singapore-changing-wet-markets/">No Longer “Dirty, Unhygienic, Crowded and Messy”: The Story of Singapore’s Changing Wet Markets</a></p>
+<p>In 1981, it was decided that no more new wet markets would be built, and the last 2 traditional wet markets in Jurong were built in 1984. Some reasons highlighted were labour and time efficiency. Time efficiency is particularly interesting, as they mentioned that due to the new trend of dual-income families, marketing had to become a faster and more efficient activity, replacing the notion of a wife spending the day at the market.</p>
+<p>The article also mentioned the issue of succession despite a sentimental attachment to wet markets.</p>
+<p><a href="https://www.channelnewsasia.com/singapore/wet-markets-singapore-future-focus-footfall-interest-die-out-3689661">IN FOCUS: Is there a future for Singapore’s wet markets?</a></p>
+<p>In 2011, the government announced that it would continue building wet markets but focus more on the food-centre aspect, providing affordable food options in areas lacking them.</p>
+<p>From the above articles, we can see that certain estates developed between 1984 and 2011 may lack food centres and wet markets. We can also expect some food centres in newer estates. This motivates the use of spatial clustering to observe these patterns and confirm or disprove our intuition.</p>
+<p>This article also motivates the inclusion of supermarkets, wet markets, and food centres in our clustering criteria</p>
+<p><a href="https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=3389&amp;context=lkcsb_research">Barriers to the advancement of modern food retail formats:Theory and measurement</a></p>
+<p>In this study, it was noted that supermarkets have been adopted across all age groups but not far into the perishable products category. However, this study was not done using data from Singapore, which may yield different results. While this study used a different method from kernel density estimation to estimate the coverage of supermarkets, we believe it is a simple method to approximate the demand for wet markets. This is because if a wet market did not have enough demand and customer footfall to sustain itself, it would close down or be replaced, perhaps by a food centre.</p>
+<p>Inspired by this article, we would like to pay more attention to the theoretical coverage provided by wet markets and supermarkets.</p>
 </section>
 <section id="system-architecture" class="level2">
 <h2 class="anchored" data-anchor-id="system-architecture">System Architecture</h2>
