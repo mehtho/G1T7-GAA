@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Project Proposal",
     "section": "",
-    "text": "Write last"
+    "text": "WhatTown involves Spatially Constrained Clustering to differentiate neighbourhoods in Singapore according to the types of facilities that provide items necessary for daily living and Kernel Density Estimation to determine the coverage of there facilities.\nThis will be done on publicly available data, encompassing supermarkets, wet markets, hawker centres, and other points of interest.\nWhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Spatially Constrained Clustering, and Kernel Density Estimation without any technical skills required.\nThe flexibility offered by our application will allow users to address their specific, unique questions through intuitive and simple visualisations without any knowledge of code or algorithms."
   },
   {
     "objectID": "about.html",
@@ -18,7 +18,7 @@
     "href": "index.html#abstract",
     "title": "Project Proposal",
     "section": "",
-    "text": "Write last"
+    "text": "WhatTown involves Spatially Constrained Clustering to differentiate neighbourhoods in Singapore according to the types of facilities that provide items necessary for daily living and Kernel Density Estimation to determine the coverage of there facilities.\nThis will be done on publicly available data, encompassing supermarkets, wet markets, hawker centres, and other points of interest.\nWhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Spatially Constrained Clustering, and Kernel Density Estimation without any technical skills required.\nThe flexibility offered by our application will allow users to address their specific, unique questions through intuitive and simple visualisations without any knowledge of code or algorithms."
   },
   {
     "objectID": "index.html#problem-motivation",
@@ -39,7 +39,7 @@
     "href": "index.html#main-features",
     "title": "Project Proposal",
     "section": "Main Features",
-    "text": "Main Features\n\nTo meet the aforementioned objectives, we proposed 3 features of our applications.\n\nExploratory Data Analysis\n\nFilter points by type (e.g. supermarket, wet markets, etc.) and region\nPlot these points on a map\nPlot histograms of the number of points of interest\n\nKernel Density Estimation\n\nGenerate KDE maps for certain facilities\nOverlay demographic information specific to each neighbourhood on a map\nAllow interactive zooming in and out for users to get a closer look\n\nSpatial Clustering\n\nSelect variables for clustering, normalised by the neighbourhood’s population\nAllow for clustering based on the prevalence of various facility types\nSelect the number of clusters and clustering algorithms"
+    "text": "Main Features\n\nTo meet the aforementioned objectives, we proposed 3 features of our applications.\n\nExploratory Data Analysis (Shared)\n\nFilter points by type (e.g. supermarket, wet markets, etc.) and region\nPlot these points on a map\nPlot histograms of the number of points of interest\n\nKernel Density Estimation (Chester)\n\nGenerate KDE maps for certain facilities\nOverlay demographic information specific to each neighbourhood on a map\nAllow interactive zooming in and out for users to get a closer look\n\nSpatial Clustering (Matt)\n\nSelect variables for clustering, normalised by the neighbourhood’s population\nAllow for clustering based on the prevalence of various facility types\nSelect the number of clusters and clustering algorithms"
   },
   {
     "objectID": "index.html#datasets",
