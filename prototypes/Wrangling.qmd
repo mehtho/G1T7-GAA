@@ -1,0 +1,86 @@
+TODO (In order of priority):
+
+-   MPSZ 2019
+
+    -   Make 3 Hexagon Layers (250, 400, 750m)
+
+    -   Calculate Distance Matrices w/ naive demand
+
+        -   Have the raw Euclidean distance matrix
+
+        -   Convert into inverse and exponential distance decay (Give 5 options)
+
+-   Market & Food Centers
+
+-   Supermarkets
+
+```{r}
+pacman::p_load(tidyverse, tmap, sf, dplyr, smoothr)
+```
+
+Reference: Matt's Takehome Exercise 1
+```{r}
+mpsz <- st_read("../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>% 
+  mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
+  mutate(Match=map(Match, ~ .[,2])) %>% 
+  mutate(Match=map(Match,setNames,c("SUBZONE_NO","SUBZONE_N","SUBZONE_C", "CA_IND", "PLN_AREA_N", "PLN_AREA_C", "REGION_N", "REGION_C", "INC_CRC", "FMEL_UPD_D"))) %>% 
+  unnest_wider(Match) %>%
+  st_as_sf() %>% dplyr::select('Name', 'geometry', 'SUBZONE_NO', 'SUBZONE_N', 'PLN_AREA_N', 'PLN_AREA_C', 'REGION_N', 'REGION_C') %>% 
+  st_make_valid() %>%
+  st_zm() %>%
+  st_transform(crs = 3414)
+```
+```{r}
+write_rds(mpsz, '../data/rds/mpsz.rds')
+```
+
+Reference: Matt's Takehome Exercise 1
+```{r}
+mainland_sg <- st_union(mpsz) %>%
+    st_cast("POLYGON")
+
+mainland_sg <- mainland_sg[c(10)]
+mainland_sg <- fill_holes(mainland_sg, units::set_units(1, "km^2"))
+mainland_sg <- st_as_sf(mainland_sg)
+```
+
+References: 
+https://r-spatial.github.io/sf/reference/st_make_grid.html
+https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste
+
+```{r}
+sg_2_grid <- function(sg, g_size, is_square, name) {
+  grids <- st_make_grid(sg, cellsize = g_size, square = is_square) %>%
+  st_intersection(mainland_sg)
+  
+  write_rds(grids, paste(name, '.rds', sep = ""))
+  plot(grids)
+  
+  return(grids)
+}
+
+grid_2_dist_mat <- function(grid, name) {
+  dm <- dist(st_coordinates(st_centroid(grid)))
+  write_rds(dm, paste(name, '_dm.rds', sep = ""))
+  return(dm)
+}
+```
+
+References:
+https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist
+https://www.rdocumentation.org/packages/geosphere/versions/1.5-18/topics/centroid
+
+```{r}
+grids_and_dist_matrices <- function(sg, g_size, is_square) {
+  name <- paste('../data/rds/grid_', g_size, ifelse(is_square, "_square", "_hexagon"), sep = "")
+  
+  grid <- sg_2_grid(sg, g_size, is_square, name)
+  distance_matrix <- grid_2_dist_mat(grid, name)
+}
+```
+
+```{r}
+grids_and_dist_matrices(mainland_sg, 700, FALSE)
+```
+
+
