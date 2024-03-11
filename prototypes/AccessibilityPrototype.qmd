@@ -1,0 +1,66 @@
+```{r}
+pacman::p_load(tmap, SpatialAcc, sf, 
+               ggstatsplot, reshape2,
+               tidyverse, dplyr)
+```
+
+```{r}
+grid <- read_rds('../data/rds/grid_700_hexagon.rds') %>%
+  mutate(demand = 100) %>%
+  mutate(seq_id = row_number())
+
+dm <- read_rds('../data/rds/grid_700_hexagon_dm.rds')
+
+points <- read_rds('../data/rds/markets_and_food_centres.rds') %>% 
+  mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
+  mutate(capacity = (TOTAL_STALLS * 30))
+```
+
+```{r}
+capacity_sum <- st_join(points, grid) %>%
+  group_by(seq_id) %>%
+  summarise(capacity_sum = sum(capacity)) %>%
+  st_drop_geometry()
+
+grid <- left_join(grid, capacity_sum, by = c("seq_id"))
+
+grid$capacity_sum[is.na(grid$capacity_sum)] <- 0
+```
+
+```{r}
+acc_Hansen <- data.frame(ac(grid$demand,
+                            grid$capacity_sum,
+                            dm, 
+                            1000,
+                            power = 2, 
+                            family = "Hansen"))
+
+colnames(acc_Hansen) <- "accHansen"
+hexagon_Hansen <- bind_cols(grid, as_tibble(acc_Hansen))
+```
+
+```{r}
+mapex <- st_bbox(grid)
+tmap_mode("plot")
+tm_shape(hexagon_Hansen,
+         bbox = mapex) + 
+  tm_fill(col = "accHansen",
+          n = 10,
+          style = "quantile",
+          border.col = "black",
+          border.lwd = 1) +
+tm_shape(points) +
+  tm_symbols(size = 0.1) +
+  tm_layout(main.title = "Accessibility to points: Hansen method",
+            main.title.position = "center",
+            main.title.size = 2,
+            legend.outside = FALSE,
+            legend.height = 0.45, 
+            legend.width = 3.0,
+            legend.format = list(digits = 6),
+            legend.position = c("right", "top"),
+            frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar(width = 0.15) +
+  tm_grid(lwd = 0.1, alpha = 0.5)
+```

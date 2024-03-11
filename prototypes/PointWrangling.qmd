@@ -1,9 +1,9 @@
-
 ```{r}
 pacman::p_load(tidyverse, tmap, sf, dplyr)
 ```
 
 ## Supermarket
+
 ```{r}
 supermarkets <- st_read("../data/geospatial/SupermarketsKML.kml") %>% 
   mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
@@ -16,6 +16,7 @@ supermarkets <- st_read("../data/geospatial/SupermarketsKML.kml") %>%
   st_zm() %>%
   st_transform(crs = 3414)
 ```
+
 ```{r}
 any(is.na(supermarkets))
 ```
@@ -30,19 +31,20 @@ supermarkets$SUBTYPE <- ifelse(grepl("FAIRPRICE", supermarkets$LIC_NAME, ignore.
 write_rds(supermarkets, '../data/rds/supermarkets.rds')
 ```
 
-
 ## Market & Food Centre
+
 ```{r}
 marketandfc <- st_read("../data/geospatial/NEAMarketandFoodCentreKML.kml") %>% 
   mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
   mutate(Match=map(Match, ~ .[,2])) %>% 
   mutate(Match=map(Match,setNames,c("TOTAL_STALLS", "MP_STALLS", "CF_STALLS", "POSTAL_CODE", "OWNER", "TYPE", "LOCATION_CENTRE", "NAME_OF_CENTRE", "INC_CRC", "FMEL_UP_D"))) %>% 
   unnest_wider(Match) %>%
-  st_as_sf() %>% dplyr::select("NAME_OF_CENTRE", "TYPE", "geometry") %>% 
+  st_as_sf() %>% dplyr::select("NAME_OF_CENTRE", "TYPE", "TOTAL_STALLS", "geometry") %>% 
   st_make_valid() %>%
   st_zm() %>%
   st_transform(crs = 3414)
 ```
+
 ```{r}
 marketandfc$SUBTYPE <- ifelse(marketandfc$TYPE == "HC", "HAWKER_CENTRE",
                   ifelse(marketandfc$TYPE == "MHC", "MARKET_AND_HAWKER",
@@ -53,6 +55,7 @@ write_rds(marketandfc, '../data/rds/markets_and_food_centres.rds')
 ```
 
 ## MRT
+
 ```{r}
 mrt <- read.csv('../data/aspatial/mrt.csv') %>%
   st_as_sf(coords = c("lng", "lat"),
@@ -64,6 +67,7 @@ write_rds(mrt, '../data/rds/mrt.rds')
 ```
 
 ## Bus Stop
+
 ```{r}
 poi <- read.csv('../data/aspatial/poi.csv') %>%
   st_as_sf(coords = c("lng", "lat"),
@@ -86,80 +90,3 @@ for (poi_t in poi_types) {
   poi2type(poi, poi_t)
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

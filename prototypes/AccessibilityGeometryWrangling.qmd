@@ -50,7 +50,8 @@ References: https://r-spatial.github.io/sf/reference/st_make_grid.html https://w
 ```{r}
 sg_2_grid <- function(sg, g_size, is_square, name) {
   grids <- st_make_grid(sg, cellsize = g_size, square = is_square) %>%
-  st_intersection(mainland_sg)
+  st_intersection(mainland_sg) %>%
+  st_as_sf()
   
   write_rds(grids, paste(name, '.rds', sep = ""))
   plot(grids)
@@ -59,7 +60,7 @@ sg_2_grid <- function(sg, g_size, is_square, name) {
 }
 
 grid_2_dist_mat <- function(grid, name) {
-  dm <- dist(st_coordinates(st_centroid(grid)))
+  dm <- as.matrix(dist(st_coordinates(st_centroid(grid))))
   write_rds(dm, paste(name, '_dm.rds', sep = ""))
   return(dm)
 }
