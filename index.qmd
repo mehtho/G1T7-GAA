@@ -6,11 +6,11 @@ title: "Project Proposal"
 
 ------------------------------------------------------------------------
 
-WhatTown involves Spatially Constrained Clustering to differentiate neighbourhoods in Singapore according to the types of facilities that provide items necessary for daily living and Kernel Density Estimation to determine the coverage of there facilities.
+WhatTown involves Geographical Accessibility Modelling and Spatial Point Pattern Analysis to determine the coverage of various facilities and amenities essential to daily living in Singaporean neighbourhoods.
 
 This will be done on publicly available data, encompassing supermarkets, wet markets, hawker centres, and other points of interest.
 
-WhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Spatially Constrained Clustering, and Kernel Density Estimation without any technical skills required.
+WhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Geographical Accessibility Modelling, and Kernel Density Estimation without any technical skills required.
 
 The flexibility offered by our application will allow users to address their specific, unique questions through intuitive and simple visualisations without any knowledge of code or algorithms.
 
@@ -46,19 +46,21 @@ To meet the aforementioned objectives, we proposed 3 features of our application
     -   Plot these points on a map
 
     -   Plot histograms of the number of points of interest
+    
 2.  Kernel Density Estimation (Chester)
     -   Generate KDE maps for certain facilities
 
     -   Overlay demographic information specific to each neighbourhood on a map
 
     -   Allow interactive zooming in and out for users to get a closer look
-3.  Spatial Clustering (Matt)
-    -   Select variables for clustering, normalised by the neighbourhood's population
+    
+3.  Geographical Accessibility Modelling (Matt)
+    -   Select facilities to model accessibility for
+    
+    -   Choose between differently sized hexagons and squares
 
-    -   Allow for clustering based on the prevalence of various facility types
-
-    -   Select the number of clusters and clustering algorithms
-
+    -   Allow users to choose between Hansen's, KD2SFCA and SAM accessibility modelling methods
+    
 ## Datasets
 
 ------------------------------------------------------------------------
