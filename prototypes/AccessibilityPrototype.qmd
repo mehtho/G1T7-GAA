@@ -5,15 +5,18 @@ pacman::p_load(tmap, SpatialAcc, sf,
 ```
 
 ```{r}
-grid <- read_rds('../data/rds/grid_700_hexagon.rds') %>%
-  mutate(demand = 100) %>%
+grid <- read_rds('../data/rds/grid_250_hexagon.rds') %>%
+  mutate(demand = 500) %>%
   mutate(seq_id = row_number())
 
-dm <- read_rds('../data/rds/grid_700_hexagon_dm.rds')
+centroid.coords <- st_coordinates(st_centroid(grid))
+points.coords <- st_coordinates(points)
+
+dm <- distance(centroid.coords, points.coords, type = "euclidean")
 
 points <- read_rds('../data/rds/markets_and_food_centres.rds') %>% 
   mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
-  mutate(capacity = (TOTAL_STALLS * 30))
+  mutate(capacity = (TOTAL_STALLS * 25))
 ```
 
 ```{r}
@@ -29,9 +32,8 @@ grid$capacity_sum[is.na(grid$capacity_sum)] <- 0
 
 ```{r}
 acc_Hansen <- data.frame(ac(grid$demand,
-                            grid$capacity_sum,
-                            dm, 
-                            1000,
+                            points$capacity,
+                            dm / 1000, 
                             power = 2, 
                             family = "Hansen"))
 
