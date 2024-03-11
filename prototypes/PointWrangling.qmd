@@ -10,7 +10,8 @@ supermarkets <- st_read("../data/geospatial/SupermarketsKML.kml") %>%
   mutate(Match=map(Match, ~ .[,2])) %>% 
   mutate(Match=map(Match,setNames,c("LIC_NAME", "BLK_HOUSE", "STR_NAME", "UNIT_NO", "POSTCODE", "LIC_NO", "INC_CRC", "FMEL_UPD_D"))) %>% 
   unnest_wider(Match) %>%
-  st_as_sf() %>% dplyr::select('LIC_NAME', 'geometry') %>% 
+  st_as_sf() %>% 
+  dplyr::select('LIC_NAME', 'geometry') %>% 
   st_make_valid() %>%
   st_zm() %>%
   st_transform(crs = 3414)
@@ -51,9 +52,40 @@ marketandfc <- subset(marketandfc, select = -TYPE)
 write_rds(marketandfc, '../data/rds/markets_and_food_centres.rds')
 ```
 
+## MRT
+```{r}
+mrt <- read.csv('../data/aspatial/mrt.csv') %>%
+  st_as_sf(coords = c("lng", "lat"),
+                      crs = 4326) %>%
+  st_transform(crs = 3414) %>%
+  dplyr::select('name', 'geometry')
 
+write_rds(mrt, '../data/rds/mrt.rds')
+```
 
+## Bus Stop
+```{r}
+poi <- read.csv('../data/aspatial/poi.csv') %>%
+  st_as_sf(coords = c("lng", "lat"),
+                      crs = 4326) %>%
+  st_transform(crs = 3414)
+```
 
+```{r}
+poi2type <- function(pois, typ) {
+  poi <- pois[pois[[typ]] == 'True', ] %>%
+    dplyr::select('name', 'geometry')
+  write_rds(poi, paste('../data/rds/poi_', typ, '.rds', sep=""))
+}
+```
+
+```{r}
+poi_types <- c("restaurant", "hospital", "lodging", "bank", "cafe", "convenience_store", "clothing_store", "atm", "school", "beauty_salon", "place_of_worship", "tourist_attraction", "doctor", "dentist", "gym", "night_club", "police", "library")
+
+for (poi_t in poi_types) {
+  poi2type(poi, poi_t)
+}
+```
 
 
 
