@@ -2,13 +2,11 @@ TODO (In order of priority):
 
 -   MPSZ 2019
 
-    -   Make 3 Hexagon Layers (250, 400, 750m)
+    -   Make 3 Hexagon Layers (250, 400, 750m) OK
 
-    -   Calculate Distance Matrices w/ naive demand
+    -   Calculate Distance Matrices OK
 
-        -   Have the raw Euclidean distance matrix
-
-        -   Convert into inverse and exponential distance decay (Give 5 options)
+        -   Have the raw Euclidean distance matrix OK
 
 -   Market & Food Centers
 
@@ -19,6 +17,7 @@ pacman::p_load(tidyverse, tmap, sf, dplyr, smoothr)
 ```
 
 Reference: Matt's Takehome Exercise 1
+
 ```{r}
 mpsz <- st_read("../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>% 
   mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
@@ -30,11 +29,13 @@ mpsz <- st_read("../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") 
   st_zm() %>%
   st_transform(crs = 3414)
 ```
+
 ```{r}
 write_rds(mpsz, '../data/rds/mpsz.rds')
 ```
 
 Reference: Matt's Takehome Exercise 1
+
 ```{r}
 mainland_sg <- st_union(mpsz) %>%
     st_cast("POLYGON")
@@ -44,9 +45,7 @@ mainland_sg <- fill_holes(mainland_sg, units::set_units(1, "km^2"))
 mainland_sg <- st_as_sf(mainland_sg)
 ```
 
-References: 
-https://r-spatial.github.io/sf/reference/st_make_grid.html
-https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste
+References: https://r-spatial.github.io/sf/reference/st_make_grid.html https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/paste
 
 ```{r}
 sg_2_grid <- function(sg, g_size, is_square, name) {
@@ -66,9 +65,7 @@ grid_2_dist_mat <- function(grid, name) {
 }
 ```
 
-References:
-https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist
-https://www.rdocumentation.org/packages/geosphere/versions/1.5-18/topics/centroid
+References: https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist https://www.rdocumentation.org/packages/geosphere/versions/1.5-18/topics/centroid
 
 ```{r}
 grids_and_dist_matrices <- function(sg, g_size, is_square) {
@@ -82,5 +79,3 @@ grids_and_dist_matrices <- function(sg, g_size, is_square) {
 ```{r}
 grids_and_dist_matrices(mainland_sg, 700, FALSE)
 ```
-
-

@@ -1,0 +1,133 @@
+
+```{r}
+pacman::p_load(tidyverse, tmap, sf, dplyr)
+```
+
+## Supermarket
+```{r}
+supermarkets <- st_read("../data/geospatial/SupermarketsKML.kml") %>% 
+  mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
+  mutate(Match=map(Match, ~ .[,2])) %>% 
+  mutate(Match=map(Match,setNames,c("LIC_NAME", "BLK_HOUSE", "STR_NAME", "UNIT_NO", "POSTCODE", "LIC_NO", "INC_CRC", "FMEL_UPD_D"))) %>% 
+  unnest_wider(Match) %>%
+  st_as_sf() %>% dplyr::select('LIC_NAME', 'geometry') %>% 
+  st_make_valid() %>%
+  st_zm() %>%
+  st_transform(crs = 3414)
+```
+```{r}
+any(is.na(supermarkets))
+```
+
+```{r}
+supermarkets$SUBTYPE <- ifelse(grepl("FAIRPRICE", supermarkets$LIC_NAME, ignore.case = TRUE), "FAIRPRICE",
+                     ifelse(grepl("COLD STORAGE", supermarkets$LIC_NAME, ignore.case = TRUE), "COLD STORAGE",
+                            ifelse(grepl("SHENG SIONG", supermarkets$LIC_NAME, ignore.case = TRUE), "SHENG SIONG", "OTHER")))
+```
+
+```{r}
+write_rds(supermarkets, '../data/rds/supermarkets.rds')
+```
+
+
+## Market & Food Centre
+```{r}
+marketandfc <- st_read("../data/geospatial/NEAMarketandFoodCentreKML.kml") %>% 
+  mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>% 
+  mutate(Match=map(Match, ~ .[,2])) %>% 
+  mutate(Match=map(Match,setNames,c("TOTAL_STALLS", "MP_STALLS", "CF_STALLS", "POSTAL_CODE", "OWNER", "TYPE", "LOCATION_CENTRE", "NAME_OF_CENTRE", "INC_CRC", "FMEL_UP_D"))) %>% 
+  unnest_wider(Match) %>%
+  st_as_sf() %>% dplyr::select("NAME_OF_CENTRE", "TYPE", "geometry") %>% 
+  st_make_valid() %>%
+  st_zm() %>%
+  st_transform(crs = 3414)
+```
+```{r}
+marketandfc$SUBTYPE <- ifelse(marketandfc$TYPE == "HC", "HAWKER_CENTRE",
+                  ifelse(marketandfc$TYPE == "MHC", "MARKET_AND_HAWKER",
+                         ifelse(marketandfc$TYPE == "MK", "MARKET", NA)))
+marketandfc <- subset(marketandfc, select = -TYPE)
+
+write_rds(marketandfc, '../data/rds/markets_and_food_centres.rds')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
