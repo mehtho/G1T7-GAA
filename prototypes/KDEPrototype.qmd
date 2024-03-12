@@ -1,0 +1,116 @@
+```{r}
+pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster)
+```
+
+```{r}
+supermarkets <- read_rds("../data/rds/supermarkets.rds")
+```
+
+```{r}
+supermarkets_sp <- as_Spatial(supermarkets)
+```
+
+```{r}
+supermarkets_sp <- as(supermarkets_sp, "SpatialPoints")
+```
+
+```{r}
+supermarkets_ppp <- as(supermarkets_sp, "ppp")
+supermarkets_ppp
+```
+
+```{r}
+plot(supermarkets_ppp)
+```
+
+```{r}
+any(duplicated(supermarkets_ppp))
+```
+
+```{r}
+supermarkets_ppp_jit <- rjitter(supermarkets_ppp,
+                                retry=TRUE,
+                                nsim=1,
+                                drop=TRUE)
+```
+
+```{r}
+any(duplicated(supermarkets_ppp_jit))
+```
+
+```{r}
+merged_owin <- read_rds("../data/rds/merged_owin.rds")
+```
+
+```{r}
+supermarketsSG_ppp = supermarkets_ppp[merged_owin]
+```
+
+```{r}
+plot(supermarketsSG_ppp)
+```
+
+```{r}
+supermarketsSG_ppp.km <- rescale(supermarketsSG_ppp, 1000, "km")
+par(mfrow=c(2,2), mar=c(3,3,1,3))
+plot(density(supermarketsSG_ppp.km, 
+             sigma=bw.ppl, 
+             edge=TRUE, 
+             kernel="gaussian"), 
+     main="Gaussian")
+plot(density(supermarketsSG_ppp.km, 
+             sigma=bw.ppl, 
+             edge=TRUE, 
+             kernel="epanechnikov"), 
+     main="Epanechnikov")
+plot(density(supermarketsSG_ppp.km, 
+             sigma=bw.ppl, 
+             edge=TRUE, 
+             kernel="quartic"), 
+     main="Quartic")
+plot(density(supermarketsSG_ppp.km, 
+             sigma=bw.ppl, 
+             edge=TRUE, 
+             kernel="disc"), 
+     main="Disc")
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(density(supermarketsSG_ppp.km,
+             sigma=bw.ppl,
+             edge=TRUE,
+             kernel="gaussian"),
+     main="Fixed bandwidth")
+plot(adaptive.density(supermarketsSG_ppp.km,
+                      method="kernel"),
+     main="Adaptive bandwidth")
+```
+
+```{r}
+kde_supermarketsSG.bw <- density(supermarketsSG_ppp.km,
+             sigma=bw.ppl,
+             edge=TRUE,
+             kernel="gaussian")
+```
+
+```{r}
+gridded_kde_supermarketsSG_bw <- as.SpatialGridDataFrame.im(kde_supermarketsSG.bw)
+spplot(gridded_kde_supermarketsSG_bw)
+```
+
+```{r}
+kde_supermarketsSG_bw_raster <- raster(gridded_kde_supermarketsSG_bw)
+kde_supermarketsSG_bw_raster
+```
+
+```{r}
+projection(kde_supermarketsSG_bw_raster) <- CRS("+init=EPSG:3414")
+kde_supermarketsSG_bw_raster
+```
+
+```{r}
+tm_shape(kde_supermarketsSG_bw_raster) +
+  tm_raster("v") +
+  tm_layout(legend.position = c("right", "bottom"), frame=FALSE)
+```

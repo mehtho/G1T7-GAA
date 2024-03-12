@@ -1,5 +1,5 @@
 ```{r}
-pacman::p_load(tidyverse, tmap, sf, dplyr)
+pacman::p_load(tidyverse, tmap, sf, dplyr, nngeo, maptools)
 ```
 
 ## Supermarket
@@ -66,7 +66,7 @@ mrt <- read.csv('../data/aspatial/mrt.csv') %>%
 write_rds(mrt, '../data/rds/mrt.rds')
 ```
 
-## Bus Stop
+## POI
 
 ```{r}
 poi <- read.csv('../data/aspatial/poi.csv') %>%
@@ -89,4 +89,80 @@ poi_types <- c("restaurant", "hospital", "lodging", "bank", "cafe", "convenience
 for (poi_t in poi_types) {
   poi2type(poi, poi_t)
 }
+```
+
+## Bus Stop
+
+```{r}
+bus_stop = st_read("../data/geospatial/msb.shp",
+              layer="gis_osm_transport_free_1")
+```
+
+```{r}
+bus_stop <- bus_stop %>%
+  filter(fclass %in% c("bus_stop"))
+unique(bus_stop$fclass)
+```
+
+```{r}
+bus_stop <- st_transform(bus_stop, crs=3414)
+```
+
+```{r}
+mpsz <- st_read("../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml")
+```
+
+```{r}
+mpsz <- mpsz %>%
+  mutate(Match=str_match_all(Description,"<td>(.*?)</td>")) %>%
+  mutate(Match=map(Match, ~ .[,2])) %>%
+  mutate(Match=map(Match,setNames,c("SUBZONE_NO","SUBZONE_N","SUBZONE_C","CA_IND", "PLN_AREA_N", "PLN_AREA_C", "REGION_N", "REGION_C", "INC_CRC", "FMEL_UPD_D"))) %>%
+  unnest_wider(Match) %>%
+  st_as_sf()
+
+mpsz <- mpsz %>%
+  dplyr::select('Name', 'geometry', 'SUBZONE_NO', 'SUBZONE_N', 'SUBZONE_C', 'PLN_AREA_N', 'PLN_AREA_C', 'REGION_N', 'REGION_C')
+
+mpsz <- st_make_valid(mpsz)
+mpsz <- st_zm(mpsz)
+```
+
+```{r}
+mpsz <- st_transform(mpsz, crs=3414)
+```
+
+```{r}
+merged_sg <- st_union(mpsz) %>%
+    st_cast("POLYGON")
+
+merged_sg <- merged_sg[c(10)]
+merged_sg <- st_remove_holes(merged_sg)
+merged_sg <- st_as_sf(merged_sg)
+
+plot(st_geometry(merged_sg))
+```
+
+```{r}
+merged <- as_Spatial(merged_sg)
+merged_sp <- as(merged, "SpatialPolygons")
+merged_owin <- as(merged_sp, "owin")
+write_rds(merged_owin, "../data/rds/merged_owin.rds")
+```
+
+```{r}
+merged_owin <- read_rds("../data/rds/merged_owin.rds")
+```
+
+```{r}
+bus_stop_sg <- st_intersection(bus_stop, merged_sg)
+```
+
+```{r}
+bus_stop_sg <- bus_stop_sg %>%
+  dplyr::select("osm_id", "fclass", "name")
+```
+
+```{r}
+write_rds(bus_stop_sg, "../data/rds/bus_stop_sg.rds")
+bus_stop_sg <- read_rds("../data/rds/bus_stop_sg.rds")
 ```
