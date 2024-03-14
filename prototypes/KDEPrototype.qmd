@@ -177,6 +177,30 @@ tm_basemap(server="OpenStreetMap.HOT") +
             alpha = 0.6,
             palette = c("#fafac3","#fd953b","#f02a75","#b62385","#021c9e")) +
   tm_shape(merged)+
-  tm_polygons(alpha=0.1,id="PLN_AREA_N")+
+  tm_polygons(alpha=0.1,
+              id="PLN_AREA_N", 
+              popup.vars=c(
+                "SUBZONE_N",
+                "Total",
+                "0 - 4",
+                "5 - 9",
+                "10 - 14",
+                "15 - 19",
+                "20 - 24",
+                "25 - 29",
+                "30 - 34",
+                "35 - 39",
+                "40 - 44",
+                "45 - 49",
+                "50 - 54",
+                "55 - 59",
+                "60 - 64",
+                "65 - 69",
+                "70 - 74",
+                "75 - 79",
+                "80 - 84",
+                "85 - 89",
+                "90 & Over"
+              ))+
   tmap_options(check.and.fix = TRUE)
 ```
