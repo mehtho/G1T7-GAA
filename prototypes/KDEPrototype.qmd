@@ -45,7 +45,18 @@ pop2020$Planning_Area <- fill_missing(pop2020$Planning_Area)
 Replace - with 0.
 
 ```{r}
-pop2020 <- data.frame(lapply(pop2020, function(x) gsub("-", "0", x)))
+data_columns <- names(pop2020)[-1]
+pop2020[, data_columns] <- lapply(pop2020[, data_columns], function(x) gsub("-", "0", x))
+```
+
+```{r}
+pop2020$Subzone <- toupper(pop2020$Subzone)
+pop2020$Planning_Area <- toupper(pop2020$Planning_Area)
+pop2020filtered <- pop2020[pop2020$Subzone != "TOTAL",]
+```
+
+```{r}
+merged <- merge(mpsz, pop2020filtered, by.x="SUBZONE_N", by.y="Subzone")
 ```
 
 ```{r}
@@ -165,7 +176,7 @@ tm_basemap(server="OpenStreetMap.HOT") +
             style = "pretty",
             alpha = 0.6,
             palette = c("#fafac3","#fd953b","#f02a75","#b62385","#021c9e")) +
-  tm_shape(mpsz)+
+  tm_shape(merged)+
   tm_polygons(alpha=0.1,id="PLN_AREA_N")+
   tmap_options(check.and.fix = TRUE)
 ```
