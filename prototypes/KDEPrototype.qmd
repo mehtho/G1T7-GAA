@@ -1,5 +1,51 @@
 ```{r}
-pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster)
+pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster, tidyr)
+```
+
+```{r}
+pop2020 <- read_excel("../data/aspatial/Singapore Census of Population (2020).xlsx", sheet=2, skip=4, col_names=TRUE)
+```
+
+Remove rows that are all NA:
+
+```{r}
+pop2020 <- pop2020[rowSums(is.na(pop2020)) != ncol(pop2020),]
+```
+
+Rename col, remove all rows where any other column except first column is NA. Remove rows where the first column is "Planning Area of Residence" - indicates start of new page, useless.
+
+```{r}
+colnames(pop2020)[1] = "Planning_Area"
+cols_to_check <- names(pop2020)[-1]
+pop2020 <- pop2020[complete.cases(pop2020[, cols_to_check]), ]
+pop2020 <- pop2020[!(pop2020$Planning_Area %in% "Planning Area of Residence"),]
+```
+
+Use function to replace all missing values (NA) with the last non-missing value, will help to fill up subzones with its proper planning area.
+
+```{r}
+fill_missing <- function(x) {
+  non_na_index <- which(!is.na(x))
+  last_non_na <- NA
+  for (i in 1:length(x)) {
+    if (is.na(x[i])) {
+      if (!is.na(last_non_na)) {
+        x[i] <- x[last_non_na]
+      }
+    } else {
+      last_non_na <- i
+    }
+  }
+  return(x)
+}
+
+pop2020$Planning_Area <- fill_missing(pop2020$Planning_Area)
+```
+
+Replace - with 0.
+
+```{r}
+pop2020 <- data.frame(lapply(pop2020, function(x) gsub("-", "0", x)))
 ```
 
 ```{r}
@@ -105,12 +151,21 @@ kde_supermarketsSG_bw_raster
 ```
 
 ```{r}
-projection(kde_supermarketsSG_bw_raster) <- CRS("+init=EPSG:3414")
+projection(kde_supermarketsSG_bw_raster) <- CRS("+init=EPSG:3414 +units=km")
 kde_supermarketsSG_bw_raster
 ```
 
 ```{r}
-tm_shape(kde_supermarketsSG_bw_raster) +
-  tm_raster("v") +
-  tm_layout(legend.position = c("right", "bottom"), frame=FALSE)
+tmap_mode("view")
+tm_basemap(server="OpenStreetMap.HOT") +
+  tm_basemap(server = "Esri.WorldImagery") +
+  tm_shape(kde_supermarketsSG_bw_raster) +
+  tm_raster("v",
+            title = "Kernel Density",
+            style = "pretty",
+            alpha = 0.6,
+            palette = c("#fafac3","#fd953b","#f02a75","#b62385","#021c9e")) +
+  tm_shape(mpsz)+
+  tm_polygons(alpha=0.1,id="PLN_AREA_N")+
+  tmap_options(check.and.fix = TRUE)
 ```
