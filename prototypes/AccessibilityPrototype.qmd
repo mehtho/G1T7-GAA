@@ -7,7 +7,29 @@ pacman::p_load(tmap, SpatialAcc, sf,
 ```{r}
 name2file <- new.env(hash=T, parent=emptyenv())
 
-name2file[["mkfc"]] <- "markets_and_food_centres.rds"
+name2file[["markets and food courts"]] <- "markets_and_food_centres.rds"
+name2file[["mrt"]] <- "mrt.rds"
+
+name2file[["atm"]] <- "poi_atm.rds"
+name2file[["bank"]] <- "poi_bank.rds"
+name2file[["beauty salon"]] <- "poi_beauty_salon.rds"
+name2file[["cafe"]] <- "poi_cafe.rds"
+name2file[["clothing store"]] <- "poi_clothing_store.rds"
+name2file[["convenience"]] <- "poi_convenience_store.rds"
+name2file[["dentist"]] <- "poi_dentist.rds"
+name2file[["doctor"]] <- "poi_doctor.rds"
+name2file[["gym"]] <- "poi_gym.rds"
+name2file[["hospital"]] <- "poi_hospital.rds"
+name2file[["library"]] <- "poi_library.rds"
+name2file[["lodging"]] <- "poi_lodging.rds"
+name2file[["night club"]] <- "poi_night_club.rds"
+name2file[["pow"]] <- "poi_place_of_worship.rds"
+name2file[["restaurant"]] <- "poi_restaurant.rds"
+name2file[["school"]] <- "poi_school.rds"
+name2file[["tourist"]] <- "poi_tourist_attraction.rds"
+
+name2file[["supermarkets"]] <- "supermarkets.rds"
+name2file[["bus"]] <- "osm_sg.rds"
 ```
 
 ```{r}
@@ -17,9 +39,11 @@ plot_acc <- function(method, quantiles, grid_size, point_type) {
   mutate(demand = 500) %>%
   mutate(seq_id = row_number())
   
-  points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>% 
-    mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
-    mutate(capacity = (TOTAL_STALLS * 25))
+  # points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>% 
+  #   mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
+  #   mutate(capacity = (TOTAL_STALLS * 25))
+  points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>%
+    mutate(capacity = 25)
   
   centroid.coords <- st_coordinates(st_centroid(grid))
   points.coords <- st_coordinates(points)
@@ -56,7 +80,7 @@ plot_acc <- function(method, quantiles, grid_size, point_type) {
             border.lwd = 1) +
   tm_shape(points) +
     tm_symbols(size = 0.1) +
-    tm_layout(main.title = paste("Accessibility to points: ", method," method", sep=""),
+    tm_layout(main.title = paste("Accessibility to ", point_type, ": ", method," method", sep=""),
               main.title.position = "center",
               main.title.size = 2,
               legend.outside = FALSE,
@@ -75,10 +99,34 @@ plot_acc <- function(method, quantiles, grid_size, point_type) {
 1: "SAM", "KD2SFCA", "Hansen" : enum
 2: Quantiles : int
 ```{r}
-plot_acc("SAM", 10, 250, "mkfc")
+# plot_acc("SAM", 10, 250, "mkfc")
 # plot_acc("SAM", 10, 500)
 # plot_acc("SAM", 10, 750)
 # plot_acc("SAM", 10, 1000)
 # plot_acc("KD2SFCA")
 # plot_acc("Hansen")
+```
+
+```{r}
+plot_acc("SAM", 10, 250, "markets and food courts")
+plot_acc("SAM", 10, 250, "mrt")
+plot_acc("SAM", 10, 250, "atm")
+plot_acc("SAM", 10, 250, "bank")
+plot_acc("SAM", 10, 250, "beauty salon")
+plot_acc("SAM", 10, 250, "cafe")
+plot_acc("SAM", 10, 250, "clothing store")
+plot_acc("SAM", 10, 250, "convenience")
+plot_acc("SAM", 10, 250, "dentist")
+plot_acc("SAM", 10, 250, "doctor")
+plot_acc("SAM", 10, 250, "gym")
+plot_acc("SAM", 10, 250, "hospital")
+plot_acc("SAM", 10, 250, "library")
+plot_acc("SAM", 10, 250, "lodging")
+plot_acc("SAM", 10, 250, "night club")
+plot_acc("SAM", 10, 250, "pow")
+plot_acc("SAM", 10, 250, "restaurant")
+plot_acc("SAM", 10, 250, "school")
+plot_acc("SAM", 10, 250, "tourist")
+plot_acc("SAM", 10, 250, "supermarkets")
+plot_acc("SAM", 10, 250, "bus")
 ```
