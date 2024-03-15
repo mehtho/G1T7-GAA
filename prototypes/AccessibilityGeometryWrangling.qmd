@@ -42,6 +42,11 @@ pop2020_pa <- read_rds('../data/rds/pop2020.rds') %>%
   group_by(Planning_Area) %>%
   summarise(Total = sum(Total), .groups = "drop")
 
+pop2020_sz <- read_rds('../data/rds/pop2020.rds') %>%
+  mutate(Total = as.numeric(Total)) %>%
+  group_by(Subzone) %>%
+  summarise(Total = sum(Total), .groups = "drop")
+
 mpsz_pa <- mpsz %>%
   group_by(PLN_AREA_N) %>%
   summarise(geometry = st_union(geometry), .groups = "drop") %>% 
@@ -50,10 +55,22 @@ mpsz_pa <- mpsz %>%
            area = st_area(geometry), 
            pop_dens = Total / area)
 
+mpsz_sz <- mpsz %>%
+  group_by(SUBZONE_N) %>%
+  summarise(geometry = st_union(geometry), .groups = "drop") %>% 
+  merge(pop2020_sz, by.x="SUBZONE_N", by.y="Subzone") %>% 
+  mutate(Total = as.numeric(Total),
+           area = st_area(geometry), 
+           pop_dens = Total / area)
+
 mpsz_pa$area <- st_area(mpsz_pa$geometry)
 mpsz_pa$pop_dens <- mpsz_pa$Total / mpsz_pa$area
 
+mpsz_sz$area <- st_area(mpsz_sz$geometry)
+mpsz_sz$pop_dens <- mpsz_sz$Total / mpsz_sz$area
+
 write_rds(mpsz_pa, '../data/rds/mpsz_pa.rds')
+write_rds(mpsz_sz, '../data/rds/mpsz_sz.rds')
 ```
 
 Reference: Matt's Takehome Exercise 1
@@ -108,8 +125,9 @@ sg_2_grid <- function(sg, g_size, is_square, name, pop) {
 References: https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist https://www.rdocumentation.org/packages/geosphere/versions/1.5-18/topics/centroid
 
 ```{r}
-grids_and_dist_matrices <- function(sg, pop, g_size, is_square) {
-  name <- paste('../data/rds/grid_', g_size, ifelse(is_square, "_square", "_hexagon"), sep = "")
+grids_and_dist_matrices <- function(sg, pop, g_size, is_square, subz) {
+  name <- paste('../data/rds/grid_', g_size, ifelse(is_square, "_square", "_hexagon"), ifelse(subz, "_sz", "_pa"), sep = "")
+  
   
   grid <- sg_2_grid(sg, g_size, is_square, name, pop)
   return(grid)
@@ -118,8 +136,10 @@ grids_and_dist_matrices <- function(sg, pop, g_size, is_square) {
 
 ```{r}
 for(di in c(250, 500, 750, 1000)) {
-  grids_and_dist_matrices(mainland_sg, mpsz_pa, di, FALSE)
-  grids_and_dist_matrices(mainland_sg, mpsz_pa, di, TRUE)
+  grids_and_dist_matrices(mainland_sg, mpsz_sz, di, FALSE, TRUE)
+  grids_and_dist_matrices(mainland_sg, mpsz_sz, di, TRUE, TRUE)
+  grids_and_dist_matrices(mainland_sg, mpsz_pa, di, FALSE, FALSE)
+  grids_and_dist_matrices(mainland_sg, mpsz_pa, di, TRUE, FALSE)
 }
 ```
 

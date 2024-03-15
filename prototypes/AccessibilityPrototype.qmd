@@ -33,9 +33,8 @@ name2file[["bus"]] <- "osm_sg.rds"
 ```
 
 ```{r}
-plot_acc <- function(method, quantiles, grid_size, point_type, exponent) {
-  # Fix the naive demand
-  grid <- read_rds(paste('../data/rds/grid_', grid_size, '_hexagon.rds', sep=""))
+plot_acc <- function(method, quantiles, grid_size, point_type, exponent, subz) {
+  grid <- read_rds(paste('../data/rds/grid_', grid_size, '_hexagon', ifelse(subz, '_sz', '_pa'),'.rds', sep=""))
   print(grid)
   
   # points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>% 
@@ -92,7 +91,8 @@ plot_acc <- function(method, quantiles, grid_size, point_type, exponent) {
 1: "SAM", "KD2SFCA", "Hansen" : enum 2: Quantiles : int
 
 ```{r}
-plot_acc("SAM", 10, 1000, "markets and food centres", 2)
+plot_acc("SAM", 10, 250, "markets and food centres", 2, TRUE)
+plot_acc("SAM", 10, 250, "markets and food centres", 2, FALSE)
 # plot_acc("SAM", 10, 500)
 # plot_acc("SAM", 10, 750)
 # plot_acc("SAM", 10, 1000)
@@ -101,8 +101,8 @@ plot_acc("SAM", 10, 1000, "markets and food centres", 2)
 ```
 
 ```{r}
-plot_acc("SAM", 10, 250, "markets and food centres", 2)
-plot_acc("SAM", 10, 250, "mrt", 2)
+# plot_acc("SAM", 10, 250, "markets and food centres", 2, TRUE)
+# plot_acc("SAM", 10, 250, "mrt", 1.5)
 # plot_acc("SAM", 10, 250, "atm")
 # plot_acc("SAM", 10, 250, "bank")
 # plot_acc("SAM", 10, 250, "beauty salon")
