@@ -7,7 +7,7 @@ pacman::p_load(tmap, SpatialAcc, sf,
 ```{r}
 name2file <- new.env(hash=T, parent=emptyenv())
 
-name2file[["markets and food courts"]] <- "markets_and_food_centres.rds"
+name2file[["markets and food centres"]] <- "markets_and_food_centres.rds"
 name2file[["mrt"]] <- "mrt.rds"
 
 name2file[["atm"]] <- "poi_atm.rds"
@@ -33,51 +33,45 @@ name2file[["bus"]] <- "osm_sg.rds"
 ```
 
 ```{r}
-plot_acc <- function(method, quantiles, grid_size, point_type) {
+plot_acc <- function(method, quantiles, grid_size, point_type, exponent) {
   # Fix the naive demand
-  grid <- read_rds(paste('../data/rds/grid_', grid_size, '_hexagon.rds', sep="")) %>%
-  mutate(demand = 500) %>%
-  mutate(seq_id = row_number())
+  grid <- read_rds(paste('../data/rds/grid_', grid_size, '_hexagon.rds', sep=""))
+  print(grid)
   
   # points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>% 
   #   mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
   #   mutate(capacity = (TOTAL_STALLS * 25))
   points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>%
-    mutate(capacity = 25)
+    mutate(capacity = 500)
   
   centroid.coords <- st_coordinates(st_centroid(grid))
   points.coords <- st_coordinates(points)
   
-  dm <- distance(centroid.coords, points.coords, type = "euclidean")
-
-  capacity_sum <- st_join(points, grid) %>%
-  group_by(seq_id) %>%
-  summarise(capacity_sum = sum(capacity)) %>%
-  st_drop_geometry()
-
-  grid <- left_join(grid, capacity_sum, by = c("seq_id"))
-  
-  grid$capacity_sum[is.na(grid$capacity_sum)] <- 0
+  dm <- exp(distance(centroid.coords, points.coords, type = "euclidean") / 1000 * exponent)
 
   acc_Hansen <- data.frame(ac(grid$demand,
                             points$capacity,
-                            dm / 1000, 
+                            dm, 
                             d0 = 250,
                             power = 2, 
                             family = method))
-
+  
   colnames(acc_Hansen) <- "acc"
   hexagon_Hansen <- bind_cols(grid, as_tibble(acc_Hansen))
+  hexagon_Hansen$acc[is.infinite(hexagon_Hansen$acc)] <- NA
   
   mapex <- st_bbox(grid)
-  tmap_mode("plot")
+
+  tm_shape(grid) + 
+  tm_polygons() +
   tm_shape(hexagon_Hansen,
            bbox = mapex) + 
     tm_fill(col = "acc",
             n = quantiles,
             style = "quantile",
             border.col = "black",
-            border.lwd = 1) +
+            border.lwd = 1,
+            na.rm = TRUE) +
   tm_shape(points) +
     tm_symbols(size = 0.1) +
     tm_layout(main.title = paste("Accessibility to ", point_type, ": ", method," method", sep=""),
@@ -95,11 +89,10 @@ plot_acc <- function(method, quantiles, grid_size, point_type) {
 }
 ```
 
+1: "SAM", "KD2SFCA", "Hansen" : enum 2: Quantiles : int
 
-1: "SAM", "KD2SFCA", "Hansen" : enum
-2: Quantiles : int
 ```{r}
-# plot_acc("SAM", 10, 250, "mkfc")
+plot_acc("SAM", 10, 1000, "markets and food centres", 2)
 # plot_acc("SAM", 10, 500)
 # plot_acc("SAM", 10, 750)
 # plot_acc("SAM", 10, 1000)
@@ -108,25 +101,25 @@ plot_acc <- function(method, quantiles, grid_size, point_type) {
 ```
 
 ```{r}
-plot_acc("SAM", 10, 250, "markets and food courts")
-plot_acc("SAM", 10, 250, "mrt")
-plot_acc("SAM", 10, 250, "atm")
-plot_acc("SAM", 10, 250, "bank")
-plot_acc("SAM", 10, 250, "beauty salon")
-plot_acc("SAM", 10, 250, "cafe")
-plot_acc("SAM", 10, 250, "clothing store")
-plot_acc("SAM", 10, 250, "convenience")
-plot_acc("SAM", 10, 250, "dentist")
-plot_acc("SAM", 10, 250, "doctor")
-plot_acc("SAM", 10, 250, "gym")
-plot_acc("SAM", 10, 250, "hospital")
-plot_acc("SAM", 10, 250, "library")
-plot_acc("SAM", 10, 250, "lodging")
-plot_acc("SAM", 10, 250, "night club")
-plot_acc("SAM", 10, 250, "pow")
-plot_acc("SAM", 10, 250, "restaurant")
-plot_acc("SAM", 10, 250, "school")
-plot_acc("SAM", 10, 250, "tourist")
-plot_acc("SAM", 10, 250, "supermarkets")
-plot_acc("SAM", 10, 250, "bus")
+plot_acc("SAM", 10, 250, "markets and food centres", 2)
+plot_acc("SAM", 10, 250, "mrt", 2)
+# plot_acc("SAM", 10, 250, "atm")
+# plot_acc("SAM", 10, 250, "bank")
+# plot_acc("SAM", 10, 250, "beauty salon")
+# plot_acc("SAM", 10, 250, "cafe")
+# plot_acc("SAM", 10, 250, "clothing store")
+# plot_acc("SAM", 10, 250, "convenience")
+# plot_acc("SAM", 10, 250, "dentist")
+# plot_acc("SAM", 10, 250, "doctor")
+# plot_acc("SAM", 10, 250, "gym")
+# plot_acc("SAM", 10, 250, "hospital")
+# plot_acc("SAM", 10, 250, "library")
+# plot_acc("SAM", 10, 250, "lodging")
+# plot_acc("SAM", 10, 250, "night club")
+# plot_acc("SAM", 10, 250, "pow")
+# plot_acc("SAM", 10, 250, "restaurant")
+# plot_acc("SAM", 10, 250, "school")
+# plot_acc("SAM", 10, 250, "tourist")
+# plot_acc("SAM", 10, 250, "supermarkets")
+# plot_acc("SAM", 10, 250, "bus")
 ```

@@ -1,5 +1,5 @@
 ```{r}
-pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster, tidyr)
+pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster, tidyr, readxl)
 ```
 
 ```{r}
@@ -50,13 +50,12 @@ pop2020[, data_columns] <- lapply(pop2020[, data_columns], function(x) gsub("-",
 ```
 
 ```{r}
+pop2020$Planning_Area <- gsub("\r\n", "", pop2020$Planning_Area)
 pop2020$Subzone <- toupper(pop2020$Subzone)
 pop2020$Planning_Area <- toupper(pop2020$Planning_Area)
 pop2020filtered <- pop2020[pop2020$Subzone != "TOTAL",]
-```
 
-```{r}
-merged <- merge(mpsz, pop2020filtered, by.x="SUBZONE_N", by.y="Subzone")
+write_rds(pop2020filtered, '../data/rds/pop2020.rds')
 ```
 
 ```{r}
