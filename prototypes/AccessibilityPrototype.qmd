@@ -1,68 +1,84 @@
 ```{r}
 pacman::p_load(tmap, SpatialAcc, sf, 
                ggstatsplot, reshape2,
-               tidyverse, dplyr)
+               tidyverse, dplyr, hash)
 ```
 
 ```{r}
-grid <- read_rds('../data/rds/grid_250_hexagon.rds') %>%
+name2file <- new.env(hash=T, parent=emptyenv())
+
+name2file[["mkfc"]] <- "markets_and_food_centres.rds"
+```
+
+```{r}
+plot_acc <- function(method, quantiles, grid_size, point_type) {
+  # Fix the naive demand
+  grid <- read_rds(paste('../data/rds/grid_', grid_size, '_hexagon.rds', sep="")) %>%
   mutate(demand = 500) %>%
   mutate(seq_id = row_number())
+  
+  points <- read_rds(paste('../data/rds/', name2file[[point_type]], sep="")) %>% 
+    mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
+    mutate(capacity = (TOTAL_STALLS * 25))
+  
+  centroid.coords <- st_coordinates(st_centroid(grid))
+  points.coords <- st_coordinates(points)
+  
+  dm <- distance(centroid.coords, points.coords, type = "euclidean")
 
-centroid.coords <- st_coordinates(st_centroid(grid))
-points.coords <- st_coordinates(points)
-
-dm <- distance(centroid.coords, points.coords, type = "euclidean")
-
-points <- read_rds('../data/rds/markets_and_food_centres.rds') %>% 
-  mutate(TOTAL_STALLS = as.numeric(TOTAL_STALLS)) %>%
-  mutate(capacity = (TOTAL_STALLS * 25))
-```
-
-```{r}
-capacity_sum <- st_join(points, grid) %>%
+  capacity_sum <- st_join(points, grid) %>%
   group_by(seq_id) %>%
   summarise(capacity_sum = sum(capacity)) %>%
   st_drop_geometry()
 
-grid <- left_join(grid, capacity_sum, by = c("seq_id"))
+  grid <- left_join(grid, capacity_sum, by = c("seq_id"))
+  
+  grid$capacity_sum[is.na(grid$capacity_sum)] <- 0
 
-grid$capacity_sum[is.na(grid$capacity_sum)] <- 0
-```
-
-```{r}
-acc_Hansen <- data.frame(ac(grid$demand,
+  acc_Hansen <- data.frame(ac(grid$demand,
                             points$capacity,
                             dm / 1000, 
+                            d0 = 250,
                             power = 2, 
-                            family = "Hansen"))
+                            family = method))
 
-colnames(acc_Hansen) <- "accHansen"
-hexagon_Hansen <- bind_cols(grid, as_tibble(acc_Hansen))
+  colnames(acc_Hansen) <- "acc"
+  hexagon_Hansen <- bind_cols(grid, as_tibble(acc_Hansen))
+  
+  mapex <- st_bbox(grid)
+  tmap_mode("plot")
+  tm_shape(hexagon_Hansen,
+           bbox = mapex) + 
+    tm_fill(col = "acc",
+            n = quantiles,
+            style = "quantile",
+            border.col = "black",
+            border.lwd = 1) +
+  tm_shape(points) +
+    tm_symbols(size = 0.1) +
+    tm_layout(main.title = paste("Accessibility to points: ", method," method", sep=""),
+              main.title.position = "center",
+              main.title.size = 2,
+              legend.outside = FALSE,
+              legend.height = 0.45, 
+              legend.width = 3.0,
+              legend.format = list(digits = 6),
+              legend.position = c("right", "top"),
+              frame = TRUE) +
+    tm_compass(type="8star", size = 2) +
+    tm_scale_bar(width = 0.15) +
+    tm_grid(lwd = 0.1, alpha = 0.5)
+}
 ```
 
+
+1: "SAM", "KD2SFCA", "Hansen" : enum
+2: Quantiles : int
 ```{r}
-mapex <- st_bbox(grid)
-tmap_mode("plot")
-tm_shape(hexagon_Hansen,
-         bbox = mapex) + 
-  tm_fill(col = "accHansen",
-          n = 10,
-          style = "quantile",
-          border.col = "black",
-          border.lwd = 1) +
-tm_shape(points) +
-  tm_symbols(size = 0.1) +
-  tm_layout(main.title = "Accessibility to points: Hansen method",
-            main.title.position = "center",
-            main.title.size = 2,
-            legend.outside = FALSE,
-            legend.height = 0.45, 
-            legend.width = 3.0,
-            legend.format = list(digits = 6),
-            legend.position = c("right", "top"),
-            frame = TRUE) +
-  tm_compass(type="8star", size = 2) +
-  tm_scale_bar(width = 0.15) +
-  tm_grid(lwd = 0.1, alpha = 0.5)
+plot_acc("SAM", 10, 250, "mkfc")
+# plot_acc("SAM", 10, 500)
+# plot_acc("SAM", 10, 750)
+# plot_acc("SAM", 10, 1000)
+# plot_acc("KD2SFCA")
+# plot_acc("Hansen")
 ```

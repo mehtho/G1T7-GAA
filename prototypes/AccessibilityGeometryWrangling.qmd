@@ -58,12 +58,6 @@ sg_2_grid <- function(sg, g_size, is_square, name) {
   
   return(grids)
 }
-# 
-# grid_2_dist_mat <- function(grid, name) {
-#   dm <- as.matrix(dist(st_coordinates(st_centroid(grid))))
-#   write_rds(dm, paste(name, '_dm.rds', sep = ""))
-#   return(dm)
-# }
 ```
 
 References: https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/dist https://www.rdocumentation.org/packages/geosphere/versions/1.5-18/topics/centroid
@@ -77,5 +71,11 @@ grids_and_dist_matrices <- function(sg, g_size, is_square) {
 ```
 
 ```{r}
-grids_and_dist_matrices(mainland_sg, 250, FALSE)
+for(g in c(250, 500, 750, 1000)) {
+  grids_and_dist_matrices(mainland_sg, g, FALSE)
+}
+```
+
+```{r}
+# write_rds(mainland_sg, "../data/rds/mainland_sg.rds")
 ```
