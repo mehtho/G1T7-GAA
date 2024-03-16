@@ -147,3 +147,14 @@ for(di in c(250, 500, 750, 1000)) {
 print(subset(mpsz_pa, Total == 0))
 ```
 
+```{r}
+set1 <- unique(mpsz_sz$SUBZONE_N)
+set2 <- unique(pop2020_sz$Subzone)
+
+# Find elements that are not shared
+not_shared <- setdiff(set1, set2)
+not_shared <- c(not_shared, setdiff(set2, set1)) # Include elements from set2 not in set1
+
+# Print the elements that are not shared
+print(not_shared)
+```

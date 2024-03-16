@@ -91,8 +91,8 @@ plot_acc <- function(method, quantiles, grid_size, point_type, exponent, subz) {
 1: "SAM", "KD2SFCA", "Hansen" : enum 2: Quantiles : int
 
 ```{r}
-plot_acc("SAM", 10, 250, "markets and food centres", 2, TRUE)
-plot_acc("SAM", 10, 250, "markets and food centres", 2, FALSE)
+# plot_acc("SAM", 10, 250, "markets and food centres", 2, TRUE)
+plot_acc("SAM", 10, 250, "supermarkets", 2, TRUE)
 # plot_acc("SAM", 10, 500)
 # plot_acc("SAM", 10, 750)
 # plot_acc("SAM", 10, 1000)
