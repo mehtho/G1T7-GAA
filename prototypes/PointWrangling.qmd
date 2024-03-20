@@ -94,14 +94,7 @@ for (poi_t in poi_types) {
 ## Bus Stop
 
 ```{r}
-bus_stop = st_read("../data/geospatial/msb.shp",
-              layer="gis_osm_transport_free_1")
-```
-
-```{r}
-bus_stop <- bus_stop %>%
-  filter(fclass %in% c("bus_stop"))
-unique(bus_stop$fclass)
+bus_stop <- read_rds("../data/rds/osm_sg.rds")
 ```
 
 ```{r}

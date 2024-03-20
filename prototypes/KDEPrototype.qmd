@@ -60,6 +60,7 @@ pop2020$Subzone <- gsub("KANGNORTH", "KANG NORTH", pop2020$Subzone)
 pop2020$Planning_Area <- toupper(pop2020$Planning_Area)
 pop2020filtered <- pop2020[pop2020$Subzone != "TOTAL",]
 
+merged <- merge(mpsz, pop2020filtered, by.x="SUBZONE_N", by.y="Subzone")
 write_rds(pop2020filtered, '../data/rds/pop2020.rds')
 ```
 
@@ -207,4 +208,36 @@ tm_basemap(server="OpenStreetMap.HOT") +
                 "90 & Over"
               ))+
   tmap_options(check.and.fix = TRUE)
+```
+
+2OSPPA using Aljunied
+
+```{r}
+mpsz <- as_Spatial(mpsz)
+mpsz
+```
+
+```{r}
+aj = mpsz[mpsz@data$SUBZONE_N == "ALJUNIED",]
+aj_sp = as(ls, "SpatialPolygons")
+aj_owin = as(ls_sp, "owin")
+aj_ppp = supermarkets_ppp_jit[aj_owin]
+G_aj = Gest(aj_ppp, correction = "border")
+plot(G_aj, xlim=c(0,500))
+```
+
+```{r}
+F_aj = Fest(aj_ppp)
+plot(F_aj)
+```
+
+```{r}
+K_aj = Kest(aj_ppp, correction = "Ripley")
+plot(K_aj, . -r ~ r, ylab= "K(d)-r", xlab = "d(m)")
+```
+
+```{r}
+L_aj = Lest(aj_ppp, correction="Ripley")
+plot(L_aj, . -r ~ r, 
+     ylab= "L(d)-r", xlab = "d(m)")
 ```
