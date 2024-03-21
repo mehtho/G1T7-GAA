@@ -39,7 +39,7 @@
     "href": "index.html#main-features",
     "title": "Project Proposal",
     "section": "Main Features",
-    "text": "Main Features\n\nTo meet the aforementioned objectives, we proposed 3 features of our applications.\n\nExploratory Data Analysis (Shared)\n\nFilter points by type (e.g. supermarket, wet markets, etc.) and region\nPlot these points on a map\nPlot histograms of the number of points of interest\n\nKernel Density Estimation (Chester)\n\nGenerate KDE maps for certain facilities\nOverlay demographic information specific to each neighbourhood on a map\nAllow interactive zooming in and out for users to get a closer look\n\nGeographical Accessibility Modelling (Matt)\n\nSelect facilities to model accessibility for\nChoose between differently sized hexagons and squares\nAllow users to choose between Hansen’s, KD2SFCA and SAM accessibility modelling methods"
+    "text": "Main Features\n\nTo meet the aforementioned objectives, we proposed 3 features of our applications.\n\nExploratory Data Analysis (Shared)\n\nFilter points by type (e.g. supermarket, wet markets, etc.) and region\nPlot these points on a map\nPlot histograms of the number of points of interest\n\nSpatial Points Pattern Analysis (Chester)\n\nGenerate KDE maps for certain facilities\nPerform 2nd Order Spatial Points Pattern Analysis\nAllow map interaction for users to easily access demographic information (age distribution)\n\nGeographical Accessibility Modelling (Matt)\n\nSelect facilities to model accessibility for\nChoose between differently sized hexagons and squares\nAllow users to choose between Hansen’s, KD2SFCA and SAM accessibility modelling methods"
   },
   {
     "objectID": "index.html#datasets",

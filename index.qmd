@@ -42,25 +42,19 @@ To meet the aforementioned objectives, we proposed 3 features of our application
 
 1.  Exploratory Data Analysis (Shared)
     -   Filter points by type (e.g. supermarket, wet markets, etc.) and region
-
     -   Plot these points on a map
-
     -   Plot histograms of the number of points of interest
-    
-2.  Kernel Density Estimation (Chester)
+2.  Spatial Points Pattern Analysis (Chester)
     -   Generate KDE maps for certain facilities
-
-    -   Overlay demographic information specific to each neighbourhood on a map
-
-    -   Allow interactive zooming in and out for users to get a closer look
-    
+    -   Perform 2nd Order Spatial Points Pattern Analysis
+    -   Allow map interaction for users to easily access demographic information (age distribution)
 3.  Geographical Accessibility Modelling (Matt)
     -   Select facilities to model accessibility for
-    
+
     -   Choose between differently sized hexagons and squares
 
     -   Allow users to choose between Hansen's, KD2SFCA and SAM accessibility modelling methods
-    
+
 ## Datasets
 
 ------------------------------------------------------------------------
