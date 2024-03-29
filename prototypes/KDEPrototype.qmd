@@ -1,9 +1,10 @@
 ```{r}
-pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster, tidyr, readxl)
+pacman::p_load(tidyverse, sf, tmap, maptools, spatstat, raster, tidyr, readxl, sp)
 ```
 
 ```{r}
 pop2020 <- read_excel("../data/aspatial/Singapore Census of Population (2020).xlsx", sheet=2, skip=4, col_names=TRUE)
+mpsz <- read_rds("../data/rds/mpsz.rds")
 ```
 
 Remove rows that are all NA:

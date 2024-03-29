@@ -2,27 +2,23 @@
 title: "Project Proposal"
 ---
 
-## Abstract
+## Introduction
 
 ------------------------------------------------------------------------
 
-WhatTown involves Geographical Accessibility Modelling and Spatial Point Pattern Analysis to determine the coverage of various facilities and amenities essential to daily living in Singaporean neighbourhoods.
+The distribution of Singaporean amenities has changed according to the distribution of different demographics. For example, older towns with older residents tend to be closer to wet markets, since the new traditional wet markets were only constructed until 1984. However, aggregated public knowledge of such patterns with easy to understand spatial representations are limited. The limited access to such information in easily understandable formats may result in public misconceptions and increasingly difficult communication regarding plans for future developments.
 
-This will be done on publicly available data, encompassing supermarkets, wet markets, hawker centres, and other points of interest.
+WhatTown involves Geographical Accessibility Modelling and Spatial Point Pattern Analysis to determine the coverage of various facilities and amenities essential to daily living in Singaporean neighbourhoods using publicly available data. This data encompasses supermarkets, wet markets, hawker centres, and other points of interest. WhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Geographical Accessibility Modelling, and Kernel Density Estimation without any technical skill requirements.
 
-WhatTown aims to be a web application to guide users through the process of Exploratory Data Analysis, Geographical Accessibility Modelling, and Kernel Density Estimation without any technical skills required.
-
-The flexibility offered by our application will allow users to address their specific, unique questions through intuitive and simple visualisations without any knowledge of code or algorithms.
+The flexibility offered by our application will allow users to address their specific, unique questions through intuitive and simple visualisations.
 
 ## Problem & Motivation
 
 ------------------------------------------------------------------------
 
-Singaporean customer preferences when shopping for daily necessities is continuously changing. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates.
+Singaporean amenties are built to serve nearby resident populations, whose needs and behaviors change across generations. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates. While this is partially due to shifts in public policy surrounding urban development, these trends also reflect significant intergenerational behavioural changes, such as the younger generation's affinity for supermarkets.
 
-However, such trends are largely anecdotal, with even less known about how the prevalence of different supermarket chains, convenience stores, or other places of interest change in different neighbourhoods.
-
-We would like create geospatial analytics application to allow users to address their various curiosities around this subject by visualising differences and patterns across Singapore.
+However, public knowledge of such trends largely anecdotal, reflecting and individual's experience rather than aggregated data. To reduce unnecessary variance in public knowledge on the availability of amenties, we propose a geospatial analytics application that allows users to address their various curiosities by visualising differences and patterns across Singapore.
 
 ## Objectives
 
@@ -126,7 +122,7 @@ Inspired by this article, we would like to pay more attention to the theoretical
 
 ![](images/clipboard-631132815.png)
 
-## Spatial Clustering
+## Accessibility Modelling
 
-![](images/clipboard-3267201596.png)
+![](images/accproto.png)
 :::
