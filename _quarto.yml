@@ -18,6 +18,9 @@ website:
             href: prototypes/PointWrangling.html
           - text: "Accessibility Geometry Wrangling"
             href: prototypes/AccessibilityGeometryWrangling.html
+    right: 
+      - href: https://matthewhosmu.shinyapps.io/G1T7-WhatTown/
+        text: Check Out the Application!
 format:
   html:
     theme: yeti
