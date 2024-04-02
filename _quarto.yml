@@ -12,6 +12,12 @@ website:
         menu:
           - text: "Accessibility Prototype"
             href: prototypes/Accessibility Prototype.html
+      - text: "Data Wrangling"
+        menu: 
+          - text: "Point Geometry Wrangling"
+            href: prototypes/PointWrangling.html
+          - text: "Accessibility Geometry Wrangling"
+            href: prototypes/AccessibilityGeometryWrangling.html
 format:
   html:
     theme: yeti

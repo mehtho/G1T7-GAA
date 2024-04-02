@@ -1,3 +1,19 @@
+---
+title: "Accessibility Prototype"
+author:
+  - name: Matthew Ho
+    url: https://www.linkedin.com/in/matthewhoyiwen/
+format:
+  html:
+    toc: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
+
+# Data Wrangling for Point Geometry 
+
 ```{r}
 pacman::p_load(tidyverse, tmap, sf, dplyr, nngeo, maptools)
 ```
@@ -28,6 +44,13 @@ supermarkets$SUBTYPE <- ifelse(grepl("FAIRPRICE", supermarkets$LIC_NAME, ignore.
 ```
 
 ```{r}
+for(st in c("FAIRPRICE", "COLD STORAGE", "SHENG SIONG", "OTHER")) {
+  subset_df <- supermarkets[supermarkets$SUBTYPE == st, ]
+  write_rds(subset_df, paste('../data/rds/supermarkets_', st, '.rds', sep=""))
+}
+```
+
+```{r}
 write_rds(supermarkets, '../data/rds/supermarkets.rds')
 ```
 
@@ -50,7 +73,16 @@ marketandfc$SUBTYPE <- ifelse(marketandfc$TYPE == "HC", "HAWKER_CENTRE",
                   ifelse(marketandfc$TYPE == "MHC", "MARKET_AND_HAWKER",
                          ifelse(marketandfc$TYPE == "MK", "MARKET", NA)))
 marketandfc <- subset(marketandfc, select = -TYPE)
+```
 
+```{r}
+for(st in c("HAWKER_CENTRE", "MARKET_AND_HAWKER", "MARKET")) {
+  subset_df <- marketandfc[marketandfc$SUBTYPE == st, ]
+  write_rds(subset_df, paste('../data/rds/markets_and_food_centres_', st, '.rds', sep=""))
+}
+```
+
+```{r}
 write_rds(marketandfc, '../data/rds/markets_and_food_centres.rds')
 ```
 

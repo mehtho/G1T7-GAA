@@ -1,16 +1,16 @@
-TODO (In order of priority):
-
--   MPSZ 2019
-
-    -   Make 3 Hexagon Layers (250, 400, 750m) OK
-
-    -   Calculate Distance Matrices OK
-
-        -   Have the raw Euclidean distance matrix OK
-
--   Market & Food Centers
-
--   Supermarkets
+---
+title: "Accessibility Prototype"
+author:
+  - name: Matthew Ho
+    url: https://www.linkedin.com/in/matthewhoyiwen/
+format:
+  html:
+    toc: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
 
 ```{r}
 pacman::p_load(tidyverse, tmap, sf, dplyr, smoothr)

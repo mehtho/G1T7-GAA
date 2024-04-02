@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Matthew Ho">
 
-<title>WhatTown</title>
+<title>WhatTown - Accessibility Prototype</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,6 +127,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Proposal</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototypes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Prototypes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-prototypes">    
+        <li>
+    <a class="dropdown-item" href="../prototypes/Accessibility Prototype.html">
+ <span class="dropdown-text">Accessibility Prototype</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-data-wrangling" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Data Wrangling</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-data-wrangling">    
+        <li>
+    <a class="dropdown-item" href="../prototypes/PointWrangling.html">
+ <span class="dropdown-text">Point Geometry Wrangling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../prototypes/AccessibilityGeometryWrangling.html">
+ <span class="dropdown-text">Accessibility Geometry Wrangling</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -143,22 +170,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Accessibility Prototype</h1>
+</div>
 
 
 
-<p>TODO (In order of priority):</p>
-<ul>
-<li><p>MPSZ 2019</p>
-<ul>
-<li><p>Make 3 Hexagon Layers (250, 400, 750m) OK</p></li>
-<li><p>Calculate Distance Matrices OK</p>
-<ul>
-<li>Have the raw Euclidean distance matrix OK</li>
-</ul></li>
-</ul></li>
-<li><p>Market &amp; Food Centers</p></li>
-<li><p>Supermarkets</p></li>
-</ul>
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://www.linkedin.com/in/matthewhoyiwen/">Matthew Ho</a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, tmap, sf, dplyr, smoothr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
