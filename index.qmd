@@ -127,6 +127,6 @@ Inspired by this article, we would like to pay more attention to the theoretical
 ![](images/accproto.png)
 :::
 
-
 #### Acknowledgements
+
 Background image created with Canva AI!
