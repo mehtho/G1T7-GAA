@@ -1,3 +1,16 @@
+---
+title: "Accessibility Prototype"
+author:
+  - name: Matthew Ho
+    url: https://www.linkedin.com/in/matthewhoyiwen/
+format:
+  html:
+    toc: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
 
 *Update:* The prototype has been deployed on <https://matthewhosmu.shinyapps.io/G1T7-WhatTown/>
 
