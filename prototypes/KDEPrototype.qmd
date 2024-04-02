@@ -219,6 +219,7 @@ mpsz
 ```
 
 ```{r}
+#| eval: false
 aj = mpsz[mpsz@data$SUBZONE_N == "ALJUNIED",]
 aj_sp = as(ls, "SpatialPolygons")
 aj_owin = as(ls_sp, "owin")
@@ -228,16 +229,19 @@ plot(G_aj, xlim=c(0,500))
 ```
 
 ```{r}
+#| eval: false
 F_aj = Fest(aj_ppp)
 plot(F_aj)
 ```
 
 ```{r}
+#| eval: false
 K_aj = Kest(aj_ppp, correction = "Ripley")
 plot(K_aj, . -r ~ r, ylab= "K(d)-r", xlab = "d(m)")
 ```
 
 ```{r}
+#| eval: false
 L_aj = Lest(aj_ppp, correction="Ripley")
 plot(L_aj, . -r ~ r, 
      ylab= "L(d)-r", xlab = "d(m)")

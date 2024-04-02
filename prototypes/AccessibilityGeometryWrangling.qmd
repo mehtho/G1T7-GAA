@@ -1,5 +1,5 @@
 ---
-title: "Accessibility Prototype"
+title: "Accessibility Geometry Wrangling"
 author:
   - name: Matthew Ho
     url: https://www.linkedin.com/in/matthewhoyiwen/
@@ -11,6 +11,8 @@ execute:
   echo: true
   warning: false
 ---
+
+This page prepares grids, demand, capacity, etc.
 
 ```{r}
 pacman::p_load(tidyverse, tmap, sf, dplyr, smoothr)

@@ -16,9 +16,9 @@ The flexibility offered by our application will allow users to address their spe
 
 ------------------------------------------------------------------------
 
-Singaporean amenties are built to serve nearby resident populations, whose needs and behaviors change across generations. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates. While this is partially due to shifts in public policy surrounding urban development, these trends also reflect significant intergenerational behavioural changes, such as the younger generation's affinity for supermarkets.
+Singaporean amenities are built to serve nearby resident populations, whose needs and behaviors change across generations. For example, there has been a gradual shift in popularity from wet markets to supermarkets, which is clear in younger estates such as Punggol, with fewer wet markets than some older estates. While this is partially due to shifts in public policy surrounding urban development, these trends also reflect significant intergenerational behavioural changes, such as the younger generation's affinity for supermarkets.
 
-However, public knowledge of such trends largely anecdotal, reflecting and individual's experience rather than aggregated data. To reduce unnecessary variance in public knowledge on the availability of amenties, we propose a geospatial analytics application that allows users to address their various curiosities by visualising differences and patterns across Singapore.
+However, public knowledge of such trends largely anecdotal, reflecting and individual's experience rather than aggregated data. To reduce unnecessary variance in public knowledge on the availability of amenities, we propose a geospatial analytics application that allows users to address their various curiosities by visualising differences and patterns across Singapore.
 
 ## Objectives
 
