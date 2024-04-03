@@ -35,17 +35,22 @@ supermarkets <- st_read("../data/geospatial/SupermarketsKML.kml") %>%
 
 ```{r}
 any(is.na(supermarkets))
+
+capc <- 500
 ```
 
 ```{r}
 supermarkets$SUBTYPE <- ifelse(grepl("FAIRPRICE", supermarkets$LIC_NAME, ignore.case = TRUE), "FAIRPRICE",
                      ifelse(grepl("COLD STORAGE", supermarkets$LIC_NAME, ignore.case = TRUE), "COLD STORAGE",
                             ifelse(grepl("SHENG SIONG", supermarkets$LIC_NAME, ignore.case = TRUE), "SHENG SIONG", "OTHER")))
+
+supermarkets$capacity <- capc
 ```
 
 ```{r}
 for(st in c("FAIRPRICE", "COLD STORAGE", "SHENG SIONG", "OTHER")) {
   subset_df <- supermarkets[supermarkets$SUBTYPE == st, ]
+  subset_df$capacity <- capc
   write_rds(subset_df, paste('../data/rds/supermarkets_', st, '.rds', sep=""))
 }
 ```
@@ -73,6 +78,8 @@ marketandfc$SUBTYPE <- ifelse(marketandfc$TYPE == "HC", "HAWKER_CENTRE",
                   ifelse(marketandfc$TYPE == "MHC", "MARKET_AND_HAWKER",
                          ifelse(marketandfc$TYPE == "MK", "MARKET", NA)))
 marketandfc <- subset(marketandfc, select = -TYPE)
+
+marketandfc$capacity <- as.integer(marketandfc$TOTAL_STALLS)
 ```
 
 ```{r}
@@ -95,6 +102,8 @@ mrt <- read.csv('../data/aspatial/mrt.csv') %>%
   st_transform(crs = 3414) %>%
   dplyr::select('name', 'geometry')
 
+mrt$capacity <- capc
+
 write_rds(mrt, '../data/rds/mrt.rds')
 ```
 
@@ -111,6 +120,8 @@ poi <- read.csv('../data/aspatial/poi.csv') %>%
 poi2type <- function(pois, typ) {
   poi <- pois[pois[[typ]] == 'True', ] %>%
     dplyr::select('name', 'geometry')
+  
+  poi$capacity <- capc
   write_rds(poi, paste('../data/rds/poi_', typ, '.rds', sep=""))
 }
 ```
@@ -131,6 +142,7 @@ bus_stop <- read_rds("../data/rds/osm_sg.rds")
 
 ```{r}
 bus_stop <- st_transform(bus_stop, crs=3414)
+bus_stop$capacity <- capc
 ```
 
 ```{r}
@@ -185,6 +197,8 @@ bus_stop_sg <- st_intersection(bus_stop, merged_sg)
 ```{r}
 bus_stop_sg <- bus_stop_sg %>%
   dplyr::select("osm_id", "fclass", "name")
+
+bus_stop_sg$capacity <- capc
 ```
 
 ```{r}
