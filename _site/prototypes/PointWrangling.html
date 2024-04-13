@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Proposal</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-prototypes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -153,6 +153,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://matthewhosmu.shinyapps.io/G1T7-WhatTown/"> 
+<span class="menu-text">Check Out the Application!</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -243,34 +249,38 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>capc <span class="ot">&lt;-</span> <span class="dv">500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>supermarkets<span class="sc">$</span>SUBTYPE <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"FAIRPRICE"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"FAIRPRICE"</span>,</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"COLD STORAGE"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"COLD STORAGE"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"SHENG SIONG"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"SHENG SIONG"</span>, <span class="st">"OTHER"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>supermarkets<span class="sc">$</span>SUBTYPE <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"FAIRPRICE"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"FAIRPRICE"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"COLD STORAGE"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"COLD STORAGE"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"SHENG SIONG"</span>, supermarkets<span class="sc">$</span>LIC_NAME, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>), <span class="st">"SHENG SIONG"</span>, <span class="st">"OTHER"</span>)))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>supermarkets<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(st <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"FAIRPRICE"</span>, <span class="st">"COLD STORAGE"</span>, <span class="st">"SHENG SIONG"</span>, <span class="st">"OTHER"</span>)) {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  subset_df <span class="ot">&lt;-</span> supermarkets[supermarkets<span class="sc">$</span>SUBTYPE <span class="sc">==</span> st, ]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(subset_df, <span class="fu">paste</span>(<span class="st">'../data/rds/supermarkets_'</span>, st, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(st <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"FAIRPRICE"</span>, <span class="st">"COLD STORAGE"</span>, <span class="st">"SHENG SIONG"</span>, <span class="st">"OTHER"</span>)) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  subset_df <span class="ot">&lt;-</span> supermarkets[supermarkets<span class="sc">$</span>SUBTYPE <span class="sc">==</span> st, ]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  subset_df<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(subset_df, <span class="fu">paste</span>(<span class="st">'../data/rds/supermarkets_'</span>, st, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(supermarkets, <span class="st">'../data/rds/supermarkets.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(supermarkets, <span class="st">'../data/rds/supermarkets.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="market-food-centre" class="level2">
 <h2 class="anchored" data-anchor-id="market-food-centre">Market &amp; Food Centre</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>marketandfc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/geospatial/NEAMarketandFoodCentreKML.kml"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">str_match_all</span>(Description,<span class="st">"&lt;td&gt;(.*?)&lt;/td&gt;"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match, <span class="sc">~</span> .[,<span class="dv">2</span>])) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match,setNames,<span class="fu">c</span>(<span class="st">"TOTAL_STALLS"</span>, <span class="st">"MP_STALLS"</span>, <span class="st">"CF_STALLS"</span>, <span class="st">"POSTAL_CODE"</span>, <span class="st">"OWNER"</span>, <span class="st">"TYPE"</span>, <span class="st">"LOCATION_CENTRE"</span>, <span class="st">"NAME_OF_CENTRE"</span>, <span class="st">"INC_CRC"</span>, <span class="st">"FMEL_UP_D"</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(Match) <span class="sc">%&gt;%</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"NAME_OF_CENTRE"</span>, <span class="st">"TYPE"</span>, <span class="st">"TOTAL_STALLS"</span>, <span class="st">"geometry"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_valid</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_zm</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>marketandfc <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/geospatial/NEAMarketandFoodCentreKML.kml"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">str_match_all</span>(Description,<span class="st">"&lt;td&gt;(.*?)&lt;/td&gt;"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match, <span class="sc">~</span> .[,<span class="dv">2</span>])) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match,setNames,<span class="fu">c</span>(<span class="st">"TOTAL_STALLS"</span>, <span class="st">"MP_STALLS"</span>, <span class="st">"CF_STALLS"</span>, <span class="st">"POSTAL_CODE"</span>, <span class="st">"OWNER"</span>, <span class="st">"TYPE"</span>, <span class="st">"LOCATION_CENTRE"</span>, <span class="st">"NAME_OF_CENTRE"</span>, <span class="st">"INC_CRC"</span>, <span class="st">"FMEL_UP_D"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(Match) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"NAME_OF_CENTRE"</span>, <span class="st">"TYPE"</span>, <span class="st">"TOTAL_STALLS"</span>, <span class="st">"geometry"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_valid</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_zm</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `MARKET_FOOD_CENTRE' from data source 
   `/Users/matthewho/Work/Y3S2/IS415/Project/G1T7-GAA/data/geospatial/NEAMarketandFoodCentreKML.kml' 
@@ -284,66 +294,73 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>marketandfc<span class="sc">$</span>SUBTYPE <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"HC"</span>, <span class="st">"HAWKER_CENTRE"</span>,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"MHC"</span>, <span class="st">"MARKET_AND_HAWKER"</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"MK"</span>, <span class="st">"MARKET"</span>, <span class="cn">NA</span>)))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>marketandfc <span class="ot">&lt;-</span> <span class="fu">subset</span>(marketandfc, <span class="at">select =</span> <span class="sc">-</span>TYPE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>marketandfc<span class="sc">$</span>SUBTYPE <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"HC"</span>, <span class="st">"HAWKER_CENTRE"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"MHC"</span>, <span class="st">"MARKET_AND_HAWKER"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(marketandfc<span class="sc">$</span>TYPE <span class="sc">==</span> <span class="st">"MK"</span>, <span class="st">"MARKET"</span>, <span class="cn">NA</span>)))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>marketandfc <span class="ot">&lt;-</span> <span class="fu">subset</span>(marketandfc, <span class="at">select =</span> <span class="sc">-</span>TYPE)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>marketandfc<span class="sc">$</span>capacity <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(marketandfc<span class="sc">$</span>TOTAL_STALLS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(st <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"HAWKER_CENTRE"</span>, <span class="st">"MARKET_AND_HAWKER"</span>, <span class="st">"MARKET"</span>)) {</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  subset_df <span class="ot">&lt;-</span> marketandfc[marketandfc<span class="sc">$</span>SUBTYPE <span class="sc">==</span> st, ]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(subset_df, <span class="fu">paste</span>(<span class="st">'../data/rds/markets_and_food_centres_'</span>, st, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(st <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"HAWKER_CENTRE"</span>, <span class="st">"MARKET_AND_HAWKER"</span>, <span class="st">"MARKET"</span>)) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  subset_df <span class="ot">&lt;-</span> marketandfc[marketandfc<span class="sc">$</span>SUBTYPE <span class="sc">==</span> st, ]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(subset_df, <span class="fu">paste</span>(<span class="st">'../data/rds/markets_and_food_centres_'</span>, st, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(marketandfc, <span class="st">'../data/rds/markets_and_food_centres.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(marketandfc, <span class="st">'../data/rds/markets_and_food_centres.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="mrt" class="level2">
 <h2 class="anchored" data-anchor-id="mrt">MRT</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mrt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../data/aspatial/mrt.csv'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lng"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'name'</span>, <span class="st">'geometry'</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(mrt, <span class="st">'../data/rds/mrt.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mrt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../data/aspatial/mrt.csv'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lng"</span>, <span class="st">"lat"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'name'</span>, <span class="st">'geometry'</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>mrt<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(mrt, <span class="st">'../data/rds/mrt.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="poi" class="level2">
 <h2 class="anchored" data-anchor-id="poi">POI</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>poi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../data/aspatial/poi.csv'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lng"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>poi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../data/aspatial/poi.csv'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lng"</span>, <span class="st">"lat"</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>poi2type <span class="ot">&lt;-</span> <span class="cf">function</span>(pois, typ) {</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  poi <span class="ot">&lt;-</span> pois[pois[[typ]] <span class="sc">==</span> <span class="st">'True'</span>, ] <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'name'</span>, <span class="st">'geometry'</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(poi, <span class="fu">paste</span>(<span class="st">'../data/rds/poi_'</span>, typ, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>poi2type <span class="ot">&lt;-</span> <span class="cf">function</span>(pois, typ) {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  poi <span class="ot">&lt;-</span> pois[pois[[typ]] <span class="sc">==</span> <span class="st">'True'</span>, ] <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'name'</span>, <span class="st">'geometry'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  poi<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(poi, <span class="fu">paste</span>(<span class="st">'../data/rds/poi_'</span>, typ, <span class="st">'.rds'</span>, <span class="at">sep=</span><span class="st">""</span>))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>poi_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"restaurant"</span>, <span class="st">"hospital"</span>, <span class="st">"lodging"</span>, <span class="st">"bank"</span>, <span class="st">"cafe"</span>, <span class="st">"convenience_store"</span>, <span class="st">"clothing_store"</span>, <span class="st">"atm"</span>, <span class="st">"school"</span>, <span class="st">"beauty_salon"</span>, <span class="st">"place_of_worship"</span>, <span class="st">"tourist_attraction"</span>, <span class="st">"doctor"</span>, <span class="st">"dentist"</span>, <span class="st">"gym"</span>, <span class="st">"night_club"</span>, <span class="st">"police"</span>, <span class="st">"library"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (poi_t <span class="cf">in</span> poi_types) {</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">poi2type</span>(poi, poi_t)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>poi_types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"restaurant"</span>, <span class="st">"hospital"</span>, <span class="st">"lodging"</span>, <span class="st">"bank"</span>, <span class="st">"cafe"</span>, <span class="st">"convenience_store"</span>, <span class="st">"clothing_store"</span>, <span class="st">"atm"</span>, <span class="st">"school"</span>, <span class="st">"beauty_salon"</span>, <span class="st">"place_of_worship"</span>, <span class="st">"tourist_attraction"</span>, <span class="st">"doctor"</span>, <span class="st">"dentist"</span>, <span class="st">"gym"</span>, <span class="st">"night_club"</span>, <span class="st">"police"</span>, <span class="st">"library"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (poi_t <span class="cf">in</span> poi_types) {</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">poi2type</span>(poi, poi_t)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bus-stop" class="level2">
 <h2 class="anchored" data-anchor-id="bus-stop">Bus Stop</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>bus_stop <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/osm_sg.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bus_stop <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/osm_sg.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bus_stop <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(bus_stop, <span class="at">crs=</span><span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>bus_stop <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(bus_stop, <span class="at">crs=</span><span class="dv">3414</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>bus_stop<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `URA_MP19_SUBZONE_NO_SEA_PL' from data source 
   `/Users/matthewho/Work/Y3S2/IS415/Project/G1T7-GAA/data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml' 
@@ -357,31 +374,31 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> mpsz <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">str_match_all</span>(Description,<span class="st">"&lt;td&gt;(.*?)&lt;/td&gt;"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match, <span class="sc">~</span> .[,<span class="dv">2</span>])) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match,setNames,<span class="fu">c</span>(<span class="st">"SUBZONE_NO"</span>,<span class="st">"SUBZONE_N"</span>,<span class="st">"SUBZONE_C"</span>,<span class="st">"CA_IND"</span>, <span class="st">"PLN_AREA_N"</span>, <span class="st">"PLN_AREA_C"</span>, <span class="st">"REGION_N"</span>, <span class="st">"REGION_C"</span>, <span class="st">"INC_CRC"</span>, <span class="st">"FMEL_UPD_D"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(Match) <span class="sc">%&gt;%</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> mpsz <span class="sc">%&gt;%</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'Name'</span>, <span class="st">'geometry'</span>, <span class="st">'SUBZONE_NO'</span>, <span class="st">'SUBZONE_N'</span>, <span class="st">'SUBZONE_C'</span>, <span class="st">'PLN_AREA_N'</span>, <span class="st">'PLN_AREA_C'</span>, <span class="st">'REGION_N'</span>, <span class="st">'REGION_C'</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(mpsz)</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_zm</span>(mpsz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> mpsz <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">str_match_all</span>(Description,<span class="st">"&lt;td&gt;(.*?)&lt;/td&gt;"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match, <span class="sc">~</span> .[,<span class="dv">2</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Match=</span><span class="fu">map</span>(Match,setNames,<span class="fu">c</span>(<span class="st">"SUBZONE_NO"</span>,<span class="st">"SUBZONE_N"</span>,<span class="st">"SUBZONE_C"</span>,<span class="st">"CA_IND"</span>, <span class="st">"PLN_AREA_N"</span>, <span class="st">"PLN_AREA_C"</span>, <span class="st">"REGION_N"</span>, <span class="st">"REGION_C"</span>, <span class="st">"INC_CRC"</span>, <span class="st">"FMEL_UPD_D"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(Match) <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> mpsz <span class="sc">%&gt;%</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">'Name'</span>, <span class="st">'geometry'</span>, <span class="st">'SUBZONE_NO'</span>, <span class="st">'SUBZONE_N'</span>, <span class="st">'SUBZONE_C'</span>, <span class="st">'PLN_AREA_N'</span>, <span class="st">'PLN_AREA_C'</span>, <span class="st">'REGION_N'</span>, <span class="st">'REGION_C'</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_make_valid</span>(mpsz)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_zm</span>(mpsz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(mpsz, <span class="at">crs=</span><span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(mpsz, <span class="at">crs=</span><span class="dv">3414</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_union</span>(mpsz) <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_cast</span>(<span class="st">"POLYGON"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> merged_sg[<span class="fu">c</span>(<span class="dv">10</span>)]</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_remove_holes</span>(merged_sg)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(merged_sg)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(merged_sg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_union</span>(mpsz) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_cast</span>(<span class="st">"POLYGON"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> merged_sg[<span class="fu">c</span>(<span class="dv">10</span>)]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_remove_holes</span>(merged_sg)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>merged_sg <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(merged_sg)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(merged_sg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -391,24 +408,26 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">as_Spatial</span>(merged_sg)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>merged_sp <span class="ot">&lt;-</span> <span class="fu">as</span>(merged, <span class="st">"SpatialPolygons"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>merged_owin <span class="ot">&lt;-</span> <span class="fu">as</span>(merged_sp, <span class="st">"owin"</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(merged_owin, <span class="st">"../data/rds/merged_owin.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">as_Spatial</span>(merged_sg)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>merged_sp <span class="ot">&lt;-</span> <span class="fu">as</span>(merged, <span class="st">"SpatialPolygons"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>merged_owin <span class="ot">&lt;-</span> <span class="fu">as</span>(merged_sp, <span class="st">"owin"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(merged_owin, <span class="st">"../data/rds/merged_owin.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>merged_owin <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/merged_owin.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>merged_owin <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/merged_owin.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(bus_stop, merged_sg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(bus_stop, merged_sg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> bus_stop_sg <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"osm_id"</span>, <span class="st">"fclass"</span>, <span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> bus_stop_sg <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"osm_id"</span>, <span class="st">"fclass"</span>, <span class="st">"name"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>bus_stop_sg<span class="sc">$</span>capacity <span class="ot">&lt;-</span> capc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(bus_stop_sg, <span class="st">"../data/rds/bus_stop_sg.rds"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/bus_stop_sg.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(bus_stop_sg, <span class="st">"../data/rds/bus_stop_sg.rds"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>bus_stop_sg <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"../data/rds/bus_stop_sg.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

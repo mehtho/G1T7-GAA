@@ -121,8 +121,6 @@ Inspired by this article, we would like to pay more attention to the theoretical
 ## Accessibility Modelling
 
 ![](images/accproto.png)
+
+#### 
 :::
-
-#### Acknowledgements
-
-Background image created with Canva AI!
